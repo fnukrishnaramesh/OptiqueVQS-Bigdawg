@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Optique VQS</title>
+		<script language="javascript" type="text/javascript" src="js/channel.js"></script>
+		<script language="javascript" type="text/javascript" src="js/event.js"></script>
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script>
+			function run(){
+				//alert($('#x'));
+				$('#x').attr('src', 'http://sws.ifi.uio.no/project/npd-v2/viz/frame.html?name1=fields&query1=SELECT%20?WKT%20?name%20?field%20?geometryID%20{%20?field%20a%20npdv:Field%20;%20npdv:name%20?name%20;%20npdv:currentFieldOperator%20?c%20.%20?c%20a%20npdv:Company%20;%20npdv:name%20%22Statoil%20Petroleum%20AS%22%20.%20?facility%20npdv:belongsTo%20?field;%20npdv:facilityFunction%20%22OIL%20PRODUCER%22.%20?geometryID%20npdv:hasGeometryFeature%20?field%20;%20geos:asWKT%20?WKT%20.%20}&name2=facilities&query2=SELECT%20?WKT%20?facilityName%20?facility%20?geometryID%20{%20?field%20a%20npdv:Field%20;%20npdv:name%20?name%20;%20npdv:currentFieldOperator%20?c%20.%20?c%20a%20npdv:Company%20;%20npdv:name%20%22Statoil%20Petroleum%20AS%22%20.%20?facility%20npdv:belongsTo%20?field;%20npdv:name%20?facilityName%20;%20npdv:facilityFunction%20%22OIL%20PRODUCER%22.%20?geometryID%20npdv:hasGeometryFeature%20?facility%20;%20geos:asWKT%20?WKT%20.%20')
+			}
+		</script>
+		<style type="text/css">
+		
+		::-webkit-scrollbar-track
+		{
+			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+			background-color: #F5F5F5;
+			border-radius: 10px;
+		}
+
+		::-webkit-scrollbar
+		{
+			width: 10px;
+			background-color: #F5F5F5;
+		}
+
+		::-webkit-scrollbar-thumb
+		{
+			border-radius: 10px;
+			background-color: gray;
+		}
+
+		</style>
+	</head>
+	<body bgcolor="#298fc2" style="margin:0px!important;overflow:hidden;">
+		<div>
+			<iframe id="MQbN" name="MQbN" src="widgets/MQbNOptique/index.html" width="40%" height="50%" style="float: left;" seamless></iframe>
+		</div>
+		<div>
+			<iframe id="Graph" name="Graph" src="widgets/GraphOptique/index.html" height="50%" width="60%" style="float: right;" seamless scrolling="no"></iframe>
+		</div>
+		<div>
+			<iframe id="Faceted" name="Faceted" src="widgets/FacetedOptique/index.html" width="40%" height="50%" style="float: left;" seamless ></iframe>
+		</div>
+		<div>
+			<div align="right"><button type="button" onClick="run();">Run Query!</button><div>
+			<iframe id="x" name="x" src="http://sws.ifi.uio.no/project/npd-v2/viz/frame.html" width="60%" height="50%" style="float: right;" seamless ></iframe>
+		</div>
+	</body>
+</html>
