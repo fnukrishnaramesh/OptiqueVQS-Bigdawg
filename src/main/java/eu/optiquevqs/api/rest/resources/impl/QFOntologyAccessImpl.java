@@ -28,7 +28,7 @@ public class QFOntologyAccessImpl {
 		List<String> ontologyURIs = new ArrayList<String>();
 		//OWL Manager
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-		File file = new File("E:\\ontologyExport_ (1).rdf");
+		File file = new File("ontologyExport_ (1).rdf");
 		
         // Now load the local copy
         OWLOntology ont = manager.loadOntologyFromOntologyDocument(file);
@@ -48,7 +48,7 @@ public class QFOntologyAccessImpl {
 	public void loadOntology(String ontologyURIStr) throws IllegalArgumentException,OWLOntologyCreationException{
 		/*************************************/
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-		File file = new File("E:\\ontologyExport_ (1).rdf");
+		File file = new File("ontologyExport_ (1).rdf");
 
         // Now load the local copy/
         OWLOntology ont = manager.loadOntologyFromOntologyDocument(file);
@@ -83,6 +83,6 @@ public class QFOntologyAccessImpl {
 		QFOntologyAccessImpl q= new QFOntologyAccessImpl();
 		q.getAvailableOntologies();
        		
-        q.loadOntology("file:/E:/ontologyExport_%20(1).rdf");
+        q.loadOntology("file:/ontologyExport_%20(1).rdf");
 	}
 }

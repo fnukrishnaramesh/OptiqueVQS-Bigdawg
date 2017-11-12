@@ -108,7 +108,7 @@ public class QFOntologyAccess {
 	        JSONParser parser = new JSONParser();
 
 		  try {     
-	        	Object  obj = parser.parse(new FileReader("E:\\UiO\\OptiqueVQS\\OptiqueVQS-Test\\JSON-data\\getDirectSubclasses.json"));
+	        	Object  obj = parser.parse(new FileReader("getDirectSubclasses.json"));
 
 	             jobject =  (JSONObject) obj;
 	                   } catch (FileNotFoundException e) {
@@ -119,12 +119,12 @@ public class QFOntologyAccess {
 	            e.printStackTrace();
 	        }
 	        
-  }
-	  else if (method.equals("getNeighbourConcepts")){
+  		}
+	  	else if (method.equals("getNeighbourConcepts")){
 	        JSONParser parser = new JSONParser();
 
-		  try {     
-	        	Object  obj = parser.parse(new FileReader("E:\\UiO\\OptiqueVQS\\OptiqueVQS-Test\\JSON-data\\getNeighbourConcepts.json"));
+		  	try {     
+	        	Object  obj = parser.parse(new FileReader("getNeighbourConcepts.json"));
 
 	             jobject =  (JSONObject) obj;
 	                   } catch (FileNotFoundException e) {
@@ -135,9 +135,22 @@ public class QFOntologyAccess {
 	            e.printStackTrace();
 	        }
 	        
-  }
+  		}
+		else if (method.equals("getConceptFacets")){
+			JSONParser parser = new JSONParser();
+			try{
+				Object  obj = parser.parse(new FileReader("getConceptFacets.json"));
+				jobject =  (JSONObject) obj;
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		} 
 		jobject.put("id", "1");
         jobject.put("jsonrpc", "2.0");	
-	  return jobject.toString();   
+	  	return jobject.toString();   
   }
 }

@@ -20,7 +20,7 @@ public class QFQueryCatalogAccessImpl {
 		JSONObject jobject = new JSONObject();
 		JSONParser parser = new JSONParser();
 		try {
-			Object  obj = parser.parse(new FileReader("E:\\UiO\\OptiqueVQS\\OptiqueVQS-Test\\JSON-data\\getQuery.json"));
+			Object  obj = parser.parse(new FileReader("getQuery.json"));
 
 	        jobject = (JSONObject) obj;
 	                   } catch (FileNotFoundException e) {
