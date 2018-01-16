@@ -14,12 +14,8 @@ $(document).ready(function() {
 			password : (getURLParameter($(location).attr('href'), "p") != null) ? getURLParameter($(location).attr('href'), "p") : "iwb",
 			context : document.body
 		}).done(function(data) {
-			console.log(data);
-			//var data=JSON.parse(data);
-			console.log(data.result.length);
-
 			for (var i = 0; i < data.result.length; i++) {
-				$("#ontology").append('<option value="' + data.result[i] + '" selected="selected">' + data.result[i] + '</optio>');
+				$("#ontology").append('<option value="' + data.result[i] + '" selected="selected">' + data.result[i] + '</option>');
 			}
 			$("#ontology").val('none');
 			$("#ontology").selectmenu('refresh');
@@ -30,6 +26,7 @@ $(document).ready(function() {
 	} else {
 		loadOntology(getURLParameter($(location).attr('href'), "ont"));
 	}
+	
 	//load user selected ontology
 	$("#loadOnt").on("click", function() {
 		if ($("#ontology").val() != "none") {
@@ -37,8 +34,8 @@ $(document).ready(function() {
 			loadOntology($("#ontology").val());
 		}
 	});
-
 });
+
 //show loading overlay
 function informLoad() {
 	//load content first
@@ -54,13 +51,12 @@ function informLoad() {
 function loadOntology(ont) {
 	//load ontology
 	$.ajax({
-		url : getBaseUrl() + "/REST/JSON/getQFOntologyAccess/?method=loadOntology&params=[%22" + ont + "%22]&id=1",
+		url : getBaseUrl() + "/REST/JSON/getQFOntologyAccess/?method=loadOntology&ontologyURI=" + ont + "&id=1",
 		dataType : 'json',
 		username : (getURLParameter($(location).attr('href'), "u") != null) ? getURLParameter($(location).attr('href'), "u") : "admin",
 		password : (getURLParameter($(location).attr('href'), "p") != null) ? getURLParameter($(location).attr('href'), "p") : "iwb",
 		context : document.body
 	}).done(function(data) {
-		//console.log('ontology loaded!');
 		//extract repository paramater and forward it to start.html
 		var repository = (getURLParameter($(location).attr('href'), "repository") != null) ? getURLParameter($(location).attr('href'), "repository") : "RDF";
 		var q = (getURLParameter($(location).attr('href'), "q") != null) ? getURLParameter($(location).attr('href'), "q") : "";

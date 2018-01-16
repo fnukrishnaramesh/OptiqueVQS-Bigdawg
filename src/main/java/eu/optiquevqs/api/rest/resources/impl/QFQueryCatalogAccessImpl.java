@@ -1,40 +1,62 @@
 package eu.optiquevqs.api.rest.resources.impl;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
 import org.json.JSONException;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.JSONObject;
 import org.openrdf.query.MalformedQueryException;
 import org.openrdf.query.QueryEvaluationException;
+import org.openrdf.query.UpdateExecutionException;
 
 public class QFQueryCatalogAccessImpl {
 	
+	public boolean deleteAllQueries()
+			throws IllegalArgumentException, JSONException, MalformedQueryException, QueryEvaluationException, UpdateExecutionException {
+		return true;
+	}
+	
+	public boolean deleteQuery(
+			String queryID)
+			throws IllegalArgumentException, JSONException, MalformedQueryException, QueryEvaluationException, UpdateExecutionException {
+		return true;
+	}
+	
+	public JSONObject getAvailableQueries() throws JSONException, MalformedQueryException, QueryEvaluationException {
+		return ReadJsonFile.readFile(QFQueryCatalogAccessImpl.class.getResource("../../../../json/inputfiles/getQueries.json").getPath());
+	}
+	
+	public JSONObject getAvailableQueryIds() throws MalformedQueryException, QueryEvaluationException{
+		 return null;
+	}
+	
+	public JSONObject getAvailableSparqlQueries() throws JSONException, MalformedQueryException, QueryEvaluationException {
+		return null;
+	}
+	
+	public JSONObject saveQuery(
+			String name,
+			String desc,
+			String query,
+			String jsonquery,
+			String status,
+			String type)
+			throws IllegalArgumentException, MalformedQueryException, UpdateExecutionException {
+		return ReadJsonFile.readFile(QFQueryCatalogAccessImpl.class.getResource("../../../../json/inputfiles/saveQuery.json").getPath());
+	}
+	 
 	public JSONObject getQuery(
 			String queryID)
 			throws IllegalArgumentException, JSONException, MalformedQueryException, QueryEvaluationException {
-		
-		JSONObject jobject = new JSONObject();
-		JSONParser parser = new JSONParser();
-		try {
-			Object  obj = parser.parse(new FileReader("E:\\UiO\\OptiqueVQS\\OptiqueVQS-Test\\JSON-data\\getQuery.json"));
-
-	        jobject = (JSONObject) obj;
-	                   } catch (FileNotFoundException e) {
-	            e.printStackTrace();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        } catch (ParseException e) {
-	            e.printStackTrace();
-	        }
-		return jobject;
-	        }
+		return ReadJsonFile.readFile(QFQueryCatalogAccessImpl.class.getResource("../../../../json/inputfiles/getQuery.json").getPath());
+	}
 	
-	public static void main(String[] args){
-		QFQueryCatalogAccessImpl a = new QFQueryCatalogAccessImpl();
-		System.out.println(a.getQuery(""));
+	public boolean updateQuery(
+			String queryID,
+			String name,
+			String desc,
+			String query,
+			String jsonquery,
+			String status,
+			String type)
+			throws IllegalArgumentException, MalformedQueryException, UpdateExecutionException, QueryEvaluationException, JSONException {
+		return true;
 	}
 }

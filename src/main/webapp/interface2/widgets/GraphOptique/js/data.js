@@ -21,8 +21,7 @@ function decodeSpecial(text) {
 	return text.replace(/\'/g, "\"");
 }
 
-function removeFormatting(text){
-	
+function removeFormatting(text){	
 	return text.replace("\t", "").replace(/\r?\n|\r/g, " ");
 }
 
@@ -69,48 +68,20 @@ function saveQuery(name, desc, sq, jq, st, typ) {
 		status = 'draft';
 	else
 		status = st;
-
-	data = {
-		method : 'saveQuery',
-		id : '1',
-		params : {
-			name : name,
-			desc : desc,
-			sparqlquery : encodeSpecial(removeFormatting(sq)),
-			jsonquery : encodeSpecial(jq),
-			status : status,
-			type: typ
-		}
-	};
 	
-	// experiment stuff
-	//console.log(jq);
+	var params = "&qname = " + name + "&desc=" + desc + "&query=" + encodeSpecial(removeFormatting(sq)) + "&jsonquery=" + jq + "&status=" + status + "&type=" + typ + "&id=1";
 	
 	$.ajax({
 		type : 'POST',
-		url : this.getBaseUrl() + '/REST/JSON/getQFQueryCatalogAccess/',
+		url : this.getBaseUrl() + '/REST/JSON/getQFQueryCatalogAccess/?method=saveQuery' + params,
 		dataType : 'json',
-		contentType : 'application/json',
-		data : JSON.stringify(data),
-		processData : false
+		context : document.body
 	}).done(function(data) {
-		
-		// experiment stuff
 		// remove if
 		if (exp == "false")
 			setQuery(data.result, st);
-
 		dataModel.getQueries();
 	});
-
-	/*$.ajax({
-	 url : this.getBaseUrl() + "/REST/JSON/getQFQueryCatalogAccess/?method=saveQuery&params=[%22" + name + "%22,%22" + desc + "%22,%22" + encodeSpecial(sq) + "%22,%22" + encodeSpecial(jq) + "%22,%22" + status + "%22]&id=1",
-	 dataType : 'json',
-	 context : document.body
-	 }).done(function(data) {
-	 setQuery(data.result, st);
-	 dataModel.getQueries();
-	 });*/
 }
 
 //update query
@@ -123,46 +94,25 @@ function updateQuery(id, name, desc, sq, jq, st, typ) {
 		status = "draft";
 	else
 		status = st;
+	var params = "&qname = " + name + "&desc=" + desc + "&query=" + encodeSpecial(removeFormatting(sq)) + "&jsonquery=" + jq + "&status=" + status + "&type=" + typ + "&id=1";
 
-	data = {
-		method : 'updateQuery',
-		id : '1',
-		params : {
-			queryID : id,
-			name : name,
-			desc : desc,
-			sparqlquery : encodeSpecial(removeFormatting(sq)),
-			jsonquery : encodeSpecial(jq),
-			status : status,
-			type: typ
-		}
-	};
 	$.ajax({
 		type : 'POST',
-		url : this.getBaseUrl() + '/REST/JSON/getQFQueryCatalogAccess/',
+		url : this.getBaseUrl() + '/REST/JSON/getQFQueryCatalogAccess/?method=updateQuery' + params,
 		dataType : 'json',
 		contentType : 'application/json',
-		data : JSON.stringify(data),
-		processData : false
+		 context : document.body
 	}).done(function(data) {
 		setQuery(id, st);
 		dataModel.getQueries();
 	});
 
-	/*$.ajax({
-	 url : this.getBaseUrl() + "/REST/JSON/getQFQueryCatalogAccess/?method=updateQuery&params=[%22" + id + "%22,%22" + name + "%22,%22" + desc + "%22,%22" + encodeSpecial(sq) + "%22,%22" + encodeSpecial(jq) + "%22,%22" + status + "%22]&id=1",
-	 dataType : 'json',
-	 context : document.body
-	 }).done(function(data) {
-	 setQuery(id, st);
-	 dataModel.getQueries();
-	 });*/
 }
 
 //load query
 function getQuery(qId) {
 	$.ajax({
-		url : this.getBaseUrl() + "/REST/JSON/getQFQueryCatalogAccess/?method=getQuery&params=[%22" + qId + "%22]&id=1",
+		url : this.getBaseUrl() + "/REST/JSON/getQFQueryCatalogAccess/?method=getQuery&qId=" + qId + "&id=1",
 		dataType : 'json',
 		context : document.body
 	}).done(function(data) {

@@ -1,88 +1,140 @@
 package eu.optiquevqs.api.rest.resources.impl;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
-import org.semanticweb.HermiT.Configuration;
-import org.semanticweb.HermiT.Reasoner;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.openrdf.query.MalformedQueryException;
+import org.openrdf.query.QueryEvaluationException;
+import org.openrdf.query.UpdateExecutionException;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.reasoner.ConsoleProgressMonitor;
-import org.semanticweb.owlapi.reasoner.InferenceType;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
-import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
-import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
+
+import uio.ifi.ontology.toolkit.projection.view.OptiqueVQSAPI;
+import uk.ac.ox.cs.JRDFox.JRDFoxException;
 
 public class QFOntologyAccessImpl {
-	OWLReasoner reasoner;
-	OWLOntology ontology;
-	
-	
-	public List<String> getAvailableOntologies() throws OWLOntologyCreationException{
-		List<String> ontologyURIs = new ArrayList<String>();
-		//OWL Manager
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-		File file = new File("E:\\ontologyExport_ (1).rdf");
+	private String defaultURI;
+	OptiqueVQSAPI vqs = new OptiqueVQSAPI();
+
+	public void loadOntology(String ontologyURIStr) throws IllegalArgumentException{		
+		defaultURI = ontologyURIStr;
+		vqs.loadOntologySession(ontologyURIStr);
+	}
 		
-        // Now load the local copy
-        OWLOntology ont = manager.loadOntologyFromOntologyDocument(file);
-        System.out.println("Loaded ontology: " + ont);
-        
-        
-        // Obtain the location where an ontology was loaded from
-        IRI documentIRI = manager.getOntologyDocumentIRI(ont);
-        
-        System.out.println("    from: " + documentIRI); 
-                
-        ontologyURIs.add(documentIRI.toString());
-        
-       return ontologyURIs;
+	public void loadOntologyVersion(String ontologyURIStr, String ontologyURIVersionStr)
+			throws IllegalArgumentException, OWLOntologyCreationException,
+			UnsupportedEncodingException, JSONException {
 	}
 	
-	public void loadOntology(String ontologyURIStr) throws IllegalArgumentException,OWLOntologyCreationException{
-		/*************************************/
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-		File file = new File("E:\\ontologyExport_ (1).rdf");
-
-        // Now load the local copy/
-        OWLOntology ont = manager.loadOntologyFromOntologyDocument(file);
-		
-		/*************************************/
-	      
-        OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
-        ConsoleProgressMonitor progressMonitor = new ConsoleProgressMonitor();
-        OWLReasonerConfiguration config = new SimpleConfiguration(progressMonitor);
-        reasoner = reasonerFactory.createReasoner(ont, config);
-
-        reasoner.precomputeInferences();
-        
-        int unsat = reasoner.getUnsatisfiableClasses().getEntitiesMinusBottom().size();
-		System.out.println("Ontology loaded: " + ontologyURIStr + ", axioms: " + ont.getAxiomCount() + ", unsat classes: " + unsat);
-    
-        }
-	
-	public void setOWLOntology(OWLOntology ontology){
-    	this.ontology = ontology;
-
-    	Configuration conf = new Configuration();
-		conf.ignoreUnsupportedDatatypes=true;	
-		
-		reasoner = new Reasoner(conf, ontology);
-		reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
-    	
+	//TODO
+    public void reLoadOntology(String ontologyURIStr) throws IllegalArgumentException,OWLOntologyCreationException, UnsupportedEncodingException, JSONException{
     }
-		
+    
+    public void setOntology(String ontologyIRI) throws IllegalArgumentException, UnsupportedEncodingException, JSONException, OWLOntologyCreationException{
+    }
 	
-	public static void main(String[] args) throws OWLOntologyCreationException{
-		QFOntologyAccessImpl q= new QFOntologyAccessImpl();
-		q.getAvailableOntologies();
-       		
-        q.loadOntology("file:/E:/ontologyExport_%20(1).rdf");
+	public JSONObject getAvailableOntologies() throws FileNotFoundException, JRDFoxException{
+		//return vqs.getOntologies();
+		return ReadJsonFile.readFile(QFOntologyAccessImpl.class.getResource("../../../../json/inputfiles/getAvailableOntologies.json").getPath());
+
 	}
+	
+	public JSONObject getLoadedOntologies() throws FileNotFoundException, JRDFoxException{
+		return null;
+	}
+	
+	public JSONObject getCoreConcepts() throws JSONException{
+		return getCoreConcepts(defaultURI);
+	}
+	
+	public JSONObject getCoreConcepts(String ontologyURIStr) throws JSONException{
+		return vqs.getCoreConcepts(ontologyURIStr);
+	}
+	
+	public JSONObject getConceptFacets(String conceptURI) throws IllegalArgumentException,JSONException{
+		return getConceptFacets(defaultURI, conceptURI, "");
+	}
+	
+	public JSONObject getConceptFacets(String ontologyURIStr, String conceptURI, String partialQuery) throws IllegalArgumentException,JSONException{
+		return ReadJsonFile.readFile(QFOntologyAccessImpl.class.getResource("../../../../json/inputfiles/getConceptFacets.json").getPath());
+	}
+	
+	public JSONObject getNeighbourConcepts(
+			String ontologyURIStr, String conceptURI, String partialQuery) throws IllegalArgumentException,JSONException{
+		return getNeighbourConcepts(ontologyURIStr, conceptURI, partialQuery, true);
+	}	
+	
+	public JSONObject getNeighbourConcepts(String conceptURI) throws IllegalArgumentException,JSONException{
+		return getNeighbourConcepts(defaultURI, conceptURI, "", true);
+	}
+	
+	private JSONObject getNeighbourConcepts(String ontologyURIStr, String conceptURI, String partialQuery, boolean includeInverses) throws IllegalArgumentException,JSONException{
+		return ReadJsonFile.readFile(QFOntologyAccessImpl.class.getResource("../../../../json/inputfiles/getNeighbourConcepts.json").getPath());
+	}
+	
+	public JSONObject generateSPARQLQueryFromText(
+			String ontologyURIStr,
+			String question,
+			String runType)
+			throws IllegalArgumentException, JSONException, MalformedQueryException, QueryEvaluationException,
+			UpdateExecutionException, IOException {
+		return null;
+
+	}
+	
+	public JSONObject getDirectSubclasses(String conceptURI)
+			throws IllegalArgumentException, JSONException {
+		
+		return getDirectSubclasses(defaultURI, conceptURI);
+	}
+	
+	public JSONObject getDirectSubclasses(String ontologyURIStr, String conceptURI)
+			throws IllegalArgumentException, JSONException {
+		return ReadJsonFile.readFile(QFOntologyAccessImpl.class.getResource("../../../../json/inputfiles/getDirectSubclasses.json").getPath());
+
+	}
+	
+	public JSONObject getAllSubclasses(String conceptURI)
+			throws IllegalArgumentException, JSONException {
+		
+		return getAllSubclasses(defaultURI, conceptURI);
+		
+	}
+	
+	public JSONObject getAllSubclasses(String ontologyURIStr, String conceptURI)
+			throws IllegalArgumentException, JSONException {
+		return null;
+	}
+	
+	public JSONObject getDirectSuperclasses(String conceptURI)
+			throws IllegalArgumentException, JSONException {
+		
+		return getDirectSuperclasses(defaultURI, conceptURI);
+	}
+	
+	public JSONObject getDirectSuperclasses(String ontologyURIStr, String conceptURI)
+			throws IllegalArgumentException, JSONException {
+		return vqs.getDirectSuperClasses(ontologyURIStr, conceptURI);
+	}
+	
+	public JSONObject getAllSuperclasses(String conceptURI)
+			throws IllegalArgumentException, JSONException {
+		
+		return getAllSuperclasses(defaultURI, conceptURI);
+	}
+	
+	public JSONObject getAllSuperclasses(String ontologyURIStr, String conceptURI)
+			throws IllegalArgumentException, JSONException {
+		return null;
+	}
+	public void clearLoadedOntologies(){
+		vqs.clearOntologySession("");
+	}
+	
+	public void clearLoadedOntology(String ontologyURIStr){
+		vqs.clearOntologySession(ontologyURIStr);
+	}
+    
 }

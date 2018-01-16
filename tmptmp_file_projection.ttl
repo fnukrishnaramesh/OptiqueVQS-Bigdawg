@@ -1,0 +1,64 @@
+
+<http://eu.optique.ontology/graphp#Facet15160614713700> a <http://eu.optique.ontology/graphp#Facet> ;
+	<http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string> .
+
+<http://eu.optique.ontology/graphp#Facet15160614713711> a <http://eu.optique.ontology/graphp#Facet> ;
+	<http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#float> .
+
+<http://eu.optique.ontology/graphp#Facet15160614713712> a <http://eu.optique.ontology/graphp#Facet> ;
+	<http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#Literal> .
+
+<http://eu.optique.ontology/graphp#Facet15160614713713> a <http://eu.optique.ontology/graphp#Facet> ;
+	<http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#int> .
+
+<http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#A> a <http://www.w3.org/2002/07/owl#Class> ;
+	<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2002/07/owl#Thing> .
+
+<http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#AA> <http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#D1> <http://eu.optique.ontology/graphp#Facet15160614713700> ;
+	a <http://www.w3.org/2002/07/owl#Class> ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "label aa" ;
+	<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#A> , <http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#D> .
+
+<http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#B> a <http://www.w3.org/2002/07/owl#Class> ;
+	<http://www.w3.org/2000/01/rdf-schema#comment> "comment 2" , "comment!" ;
+	<http://www.w3.org/2000/01/rdf-schema#label> "label b" , "label bb" ;
+	<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2002/07/owl#Thing> .
+
+<http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#BB> <http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#D2> <http://eu.optique.ontology/graphp#Facet15160614713713> ;
+	a <http://www.w3.org/2002/07/owl#Class> ;
+	<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#B> .
+
+<http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#C> <http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#R> <http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#B> ;
+	a <http://www.w3.org/2002/07/owl#Class> ;
+	<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2002/07/owl#Thing> .
+
+<http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#CC> <http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#R> <http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#BB> ;
+	a <http://www.w3.org/2002/07/owl#Class> ;
+	<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#C> .
+
+<http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#D> <http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#D1> <http://eu.optique.ontology/graphp#Facet15160614713712> ;
+	<http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#D2> <http://eu.optique.ontology/graphp#Facet15160614713711> ;
+	a <http://www.w3.org/2002/07/owl#Class> ;
+	<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2002/07/owl#Thing> .
+
+<http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#D1> a <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+
+<http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#D2> a <http://www.w3.org/2002/07/owl#DatatypeProperty> ;
+	<http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2002/07/owl#topDataProperty> .
+
+<http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#D3> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2002/07/owl#topDataProperty> .
+
+<http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#E> a <http://www.w3.org/2002/07/owl#Class> ;
+	<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2002/07/owl#Thing> .
+
+<http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#F> <http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#S> <http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#E> ;
+	a <http://www.w3.org/2002/07/owl#Class> ;
+	<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2002/07/owl#Thing> .
+
+<http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#R> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+	<http://www.w3.org/2002/07/owl#inverseOf> <http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#Rinv> .
+
+<http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#Rinv> a <http://www.w3.org/2002/07/owl#ObjectProperty> ;
+	<http://www.w3.org/2002/07/owl#inverseOf> <http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#R> .
+
+<http://www.semanticweb.org/ernesto/ontologies/2017/10/untitled-ontology-431#S> a <http://www.w3.org/2002/07/owl#ObjectProperty> .

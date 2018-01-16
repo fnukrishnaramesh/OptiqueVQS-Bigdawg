@@ -16,26 +16,16 @@ function ProcessSparql() {
                 function() {
                     jsonForSparql = ProcessCycles(jsonForSparql);
                     jsonForSparql = ProcessSimilarTypes(jsonForSparql);
-                    // console.log(" --- OJSON --- ");
-                    // console.log(JSON.stringify(jsonForSparql,undefined,
-                    // 2));
+
                     ValidateOntology(jsonForSparql, validationMessages)
                         .done(
                             function() {
                                 if (validationMessages.length == 0) {
                                     var oJson = RJsonToOJson(jsonForSparql);
                                     ProcessComments(oJson,strComments);
-                                    // console.log(" --- RJSON
-                                    // --- ");
-                                    // console.log(JSON.stringify(oJson,undefined,
-                                    // 2));
+                                  
                                     tree.loadQuery(oJson);
                                     $("#qsm").html("");
-                                    //$('#sparql').removeClass(
-                                    //    'ui-btn-active');
-                                    //$('#sparqlquery').hide();
-                                    //$('#infovis').show();
-                                    //showTinies();
                                     $("#errorList").empty();
                                 } else {
                                     // Show all messages
@@ -49,10 +39,8 @@ function ProcessSparql() {
                                         .html(
                                             validationMessagesList);
                                 }
-                                // console.log("Done -
-                                // ValidateOntology");
+                                
                             });
-                    // console.log("Done - ProcessUndefinedTypes");
                 });
     } else {
         var parseError = "<ul data-role='listview'> <li> " + statusAndJson.status + " </li> </ul>";
@@ -409,10 +397,6 @@ function GetConstraints(where) {
 }
 
 function GetFirstObject() {
-    // var defaultObjStr = '{"id":"0","data":{"id":"0","label":"Untitled
-    // query","desc":"Please provide a description
-    // here...","icon":"","$color":"#FF9900","sequence":{},"aggregate":{},"isActive":
-    // "true"},"adjacencies":[{"nodeTo":"","data":{"id":"","name":"","label":"","ns":""}}]}';
     var defaultObjStr = '{"id":"0","data":{"id":"0","label":"Untitled query","desc":"Please provide a description here...","icon":"","$color":"","sequence":{},"aggregate":{},"isActive": ""},"adjacencies":[{"nodeTo":"c1","data":{"id":"","name":"","label":"","ns":""}}]}';
     return jQuery.parseJSON(defaultObjStr);
 }
@@ -448,15 +432,6 @@ function GetAttributeTriplesForCurrentSubject(tripleSubject, outputTriples,
     }
     return myTriples;
 }
-
-/*
- * function GetOutputTriplesForCurrentSubject(attributeTriplesForCurrentSubject,
- * variables) { var myTriples = new Array(); for (var i = 0; i <
- * attributeTriplesForCurrentSubject.length; i++) { for (var j = 0; j <
- * variables.length; j++) { if (variables[j] ==
- * attributeTriplesForCurrentSubject[i].object) {
- * myTriples.push(attributeTriplesForCurrentSubject[i]); } } } return myTriples; }
- */
 
 function GetConstraintsForCurrentConcept(allConstraints,
     attributeTriplesForCurrentSubject, prefixes) {

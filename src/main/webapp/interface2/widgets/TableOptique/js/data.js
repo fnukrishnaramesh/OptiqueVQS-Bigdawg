@@ -20,9 +20,12 @@ function submitQuery(dt) {
 			//extract repository paramater and forward it to iwb
 			var repository = getRepository();
 			if (repository != "RDF") {
-				var url = getBaseUrl() + "/sparql?q=" + encodeURIComponent(dt.content.query.replace(/ LIMIT [0-9]+$/, "") + " LIMIT 100") + "&infer=false&queryLanguage=SPARQL&queryTarget=" + repository + "&repository=" + repository;
+				var url = getBaseUrl() + "/fuseki/OptiqueVQS/sparql?query=" + encodeURIComponent(dt.content.query.replace(/ LIMIT [0-9]+$/, "") + " LIMIT 100") + "&infer=false&queryLanguage=SPARQL&queryTarget=" + repository + "&repository=" + repository;
+				//var url = getBaseUrl() + "/sparql?q=" + encodeURIComponent(dt.content.query.replace(/ LIMIT [0-9]+$/, "") + " LIMIT 100") + "&infer=false&queryLanguage=SPARQL&queryTarget=" + repository + "&repository=" + repository;
 			} else {
-				var url = getBaseUrl() + "/sparql?q=" + encodeURIComponent(dt.content.query.replace(/ LIMIT [0-9]+$/, "") + " LIMIT 100") + "&infer=false&queryLanguage=SPARQL&queryTarget=" + repository;
+				var url = getBaseUrl() + "/fuseki/OptiqueVQS/sparql?query=" + encodeURIComponent(dt.content.query.replace(/ LIMIT [0-9]+$/, "") + " LIMIT 100") + "&infer=false&queryLanguage=SPARQL&queryTarget=" + repository;
+				//var url = getBaseUrl() + "/sparql?q=" + encodeURIComponent(dt.content.query.replace(/ LIMIT [0-9]+$/, "") + " LIMIT 100") + "&infer=false&queryLanguage=SPARQL&queryTarget=" + repository;
+
 			}
 
 			//submit the query

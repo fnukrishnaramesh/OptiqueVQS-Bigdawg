@@ -20,15 +20,15 @@ $(document).ready(function() {
 	// experiment stuff
 	exp = getURLParameter($(parent.location).attr('href'), "exp");
 
-	//call geoLocation widget
-	$('body').on('click', '.geoLocation', function(event) {
+	//call geoLocation widget - no longer used
+	/*$('body').on('click', '.geoLocation', function(event) {
 		Facet.deliverEvent($(this), 'geoLocation');
 	});
 
 	//call temporal widget
 	$('body').on('click', '.temporal', function(event) {
 		Facet.deliverEvent($(this), 'temporal');
-	});
+	});*/
 
 	//add attribute to output
 	$('body').on('click', '.add', function(event) {
@@ -474,9 +474,9 @@ function formField(fctId, params) {
 		//field += '<a href="#"><img src="http://simpleicon.com/wp-content/uploads/current-location.svg" style="position:absolute; z-index: 2;right:15px;height: 32px;width: 32px;"></img></a>';
 
 		// bind widgets
-		if (params.ext == 'geoLocation') {
+		/*if (params.ext == 'geoLocation') {
 			field += '<a href="#" data-role="button" name="location" data-icon="geoLocation" data-iconpos="notext" data-theme="c" data-inline="true" class="' + params.ext + '" style="float:right;" id="geo_' + aId + '">Map</a>';
-		}
+		}*/
 
 		field += '<a href="#" data-role="button" data-icon="add" data-iconpos="notext" data-theme="c" data-inline="true" class="add" id="btn_' + aId + '">Output</a>' + params.label + '</label>';
 		field += '<input type="text" name="text" id="' + aId + '" value="" data-clear-btn="true"/>';
@@ -494,11 +494,11 @@ function formField(fctId, params) {
 		field += '<label for="' + aId + '">';
 
 		// bind widgets
-		if ( typeof params.ext !== 'undefined') {
+		/*if ( typeof params.ext !== 'undefined') {
 			// experiment stuff
 			if (exp == "false")
 				field += '<a href="#" data-role="button" name="location" data-icon="geoLocation" data-iconpos="notext" data-theme="c" data-inline="true" class="' + params.ext + '" style="float:right;" id="geo_' + aId + '">Map</a>';
-		}
+		}*/
 
 		field += '<a href="#" data-role="button" data-icon="add" data-iconpos="notext" data-theme="c" data-inline="true" class="add" id="btn_' + aId + '">Output</a>' + params.label + '</label>';
 		field += '<select name="select-one" id="' + aId + '">';
@@ -621,13 +621,13 @@ function deliverEvent(source, type) {
 		 * what happens if I first enter constraint than temporal
 		 */
 
-	} else if (type == 'geoLocation') {
+	}/* else if (type == 'geoLocation') {
 		Channel.message.content.nodeId = concept.nodeId;
 		Channel.message.content.conceptId = concept.conceptId;
 		Channel.message.content.conceptName = concept.conceptName;
 		Channel.message.content.conceptLabel = concept.conceptLabel;
 		Channel.message.content.conceptNs = concept.conceptNs;
-	}
+	}*/
 	// else if (type == 'temporal') {
 	//	console.log(Channel.message);
 	//}

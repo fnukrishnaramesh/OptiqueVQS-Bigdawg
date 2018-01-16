@@ -1,89 +1,20 @@
-// delete node mode on/off
+// Initialize node state
 var deleteNode = false;
-// same node on/off
 var sameNode = false;
-// same node head
 var nodeSame = '';
-// node to delete
 var nodeToDelete = '';
-// query title
-//var queryTitle;
-//opentab
 var openTab = 'savedQueries';
-// active node
 var activeNode;
-//current query
 var query = new Object();
-//sparql view
 var sparqlv;
-//config
+
+//config parameters
 var Qconfig = new Object();
 Qconfig.distinct = 'no';
 Qconfig.example = 'yes';
 Qconfig.longids = 'yes';
 Qconfig.longidsv = 'no';
 Qconfig.limit = 0;
-
-// A Starql template has two functions: one for constructing select
-// clauses and one for constructing having clauses.  Both take four
-// arguments: the subject and predicate used in the query, a
-// guaranteed unique integer for creating uids if necessary, and an
-// array of parameter objects of the form { 'name' : string, 'value' :
-// value }.  See http://optique.fluidops.net/resource/StreamVQS and
-// widgets/TableOptique/js/main.js
-var StarqlTemplate = function(name, selectFunction, havingFunction) {
-	this.name = name;
-	this.getSelectClause = selectFunction;
-	this.getHavingClause = havingFunction;
-}
-// The echo template just emits the value that exists at each time
-// point.
-var StarqlEchoTemplate = new StarqlTemplate("Echo", function(subj, pred, uniqueid, params) {
-	return "?_val" + uniqueid;
-}, function(subj, pred, uniqueid, params) {
-	return "EXISTS i IN seq ( GRAPH i { " + subj + " " + pred + " ?_val" + uniqueid + " } )";
-});
-
-// The monotonic increase template emits a value if it has been
-// monotonically increasing over the interval.
-var StarqlMonIncTemplate = new StarqlTemplate("Monotonic Increase", function(subj, pred, uniqueid, params) {
-	return subj;
-}, function(subj, pred, uniqueid, params) {
-	return "FORALL i, j IN seq ?x, ?y (\n" + "IF ((i < j AND GRAPH i { " + subj + " " + pred + " ?x })\n" + "    AND GRAPH j { " + subj + " " + pred + " ?y }) THEN ?x <= ?y)";
-});
-
-var StarqlRangeTemplate = new StarqlTemplate("Range", function(subj, pred, uniqueid, params) {
-	return "?_val" + uniqueid;
-}, function(subj, pred, uniqueid, params) {
-	var min;
-	var max;
-	for (var i = 0; i < params.length; i++) {
-		if (params[i].name == "min")
-			min = params[i].value;
-		if (params[i].name == "max")
-			max = params[i].value;
-	}
-	return "EXISTS i IN seq (((\n"
-		+ "  GRAPH i { " + subj + " " + pred + " ?_val" + uniqueid + " }\n"
-		+ "  AND ?_val" + uniqueid + " < " + max + " ) AND ?_val" + uniqueid + " > " + min + " ))";
-});
-
-var StarqlGradientCheckTemplate = new StarqlTemplate("gradientcheck", function(subj, pred, uniqueid, params) {
-	return "?_val" + uniqueid;
-}, function(subj, pred, uniqueid, params) {
-	var rise;
-	for (var i = 0; i < params.length; i++) {
-		if (params[i].name == "rise")
-			rise = params[i].value;
-	}
-	return "FORALL i, j IN seq ?_val" + uniqueid + ", ?y (\n" + "  IF ((GRAPH i { " + subj + " " + pred + " ?_val" + uniqueid + " }\n" + "    AND GRAPH j { " + subj + " " + pred + " ?y }) \n" + "    AND (i + 1) = j)\n" + "  THEN ABS(?_val" + uniqueid + " - ?y) > " + rise + ")";
-});
-
-var StarqlLoggingFaultTemplate = new StarqlTemplate("loggingfault", function(subj, pred, uniqueid, params) {
-	return subj;
-}, function(subj, pred, uniqueid, params) {
-	return "EXISTS i, j IN seq ?_val" + uniqueid + ", ?y (\n" + "  ((GRAPH i { " + subj + " " + pred + " ?_val" + uniqueid + " }\n" + "  AND GRAPH j { " + subj + " " + pred + " ?y }) \n" + "  AND i != j))\n";
-});
 
 // experiment stuff
 // load date
@@ -121,12 +52,6 @@ $(document).ready(function() {
 
 	// hide tiny config buttons
 	hideTinies();
-
-	// activate temporal
-	//call temporal widget
-	$('body').on('click', '#tny_temp', function(event) {
-		tree.deliverEvent('', 'temporal');
-	});
 
 	//call Q-Config
 	$('body').on('click', '#Qconfig', function(event) {
@@ -184,14 +109,8 @@ $(document).ready(function() {
 	$('body').on('click', '#saveQuery', function(event) {
 		var type;
 		var qe;
-
-		if (isStream() >= 0){
-			type = "starql";
-			qe = tree.getStarql(tree.toSparqlObj());
-		} else {
-			type = "sparql";
-			qe = tree.getSparql(tree.toSparqlObj());
-		}
+		type = "sparql";
+		qe = tree.getSparql(tree.toSparqlObj());
 
 		if ( typeof query.id === "undefined") {
 			dataModel.saveQuery(tree.getAttr(0, "label"), tree.getAttr(0, "desc"), qe, JSON.stringify(tree.getQueryGraph()), "final", type);
@@ -209,15 +128,12 @@ $(document).ready(function() {
 			if (sparqlv != $("#queryarea").html()) {
 				ProcessSparql();
 			} else {
-				//$('#deleteNode').removeClass('ui-disabled');
 				$('#sparql').removeClass('ui-btn-active');
-				//$('#sameNode').removeClass('ui-disabled');
 				$('#sparqlquery').hide();
 				$('#infovis').show();
 				showTinies();
 			}
 		} else {
-			//$('#sameNode').addClass('ui-disabled');
 			$('#sparql').addClass('ui-btn-active');
 			$('#infovis').hide();
 			$('#sparqlquery').show();
@@ -230,26 +146,6 @@ $(document).ready(function() {
 
 	});
 
-	//activate/deactivate sparql view
-	/*$('body').on('click', '#sparql', function(event) {
-	if ($(this).hasClass('ui-btn-active')) {
-	$('#deleteNode').removeClass('ui-disabled');
-	$('#sparql').removeClass('ui-btn-active');
-	//$('#sameNode').removeClass('ui-disabled');
-	$('#sparqlquery').hide();
-	$('#infovis').show();
-	showTinies();
-	} else {
-	//$('#sameNode').addClass('ui-disabled');
-	$('#sparql').addClass('ui-btn-active');
-	$('#infovis').hide();
-	$('#sparqlquery').show();
-	hideTinies();
-	}
-
-	$("#queryarea").html(tree.getSparqlView());
-
-	});*/
 	// activate/deactivate execute query
 	$('body').on('click', '#executeQuery', function(event) {
 		if ($(this).hasClass('ui-btn-active')) {
@@ -288,6 +184,7 @@ $(document).ready(function() {
 			}
 		}
 	});
+	
 	//node click :: delete and same
 	$('body').on('click', '.node', function(event) {
 		if (deleteNode) {
@@ -304,6 +201,7 @@ $(document).ready(function() {
 			}
 		}
 	});
+	
 	//node onmouseover :: delete and same
 	$('body').on('mouseover', '.node', function(event) {
 		var color;

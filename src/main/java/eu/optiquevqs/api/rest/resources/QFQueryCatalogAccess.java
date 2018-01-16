@@ -1,18 +1,16 @@
 package eu.optiquevqs.api.rest.resources;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.JSONObject;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 import eu.optiquevqs.api.rest.resources.impl.QFQueryCatalogAccessImpl;
@@ -24,55 +22,68 @@ public class QFQueryCatalogAccess {
 	@Produces(MediaType.APPLICATION_JSON)  
 	public String getQFQueryCatalogAccess(
 			@QueryParam("method") String method,
-			@QueryParam("params") String paramvalue,
 			@QueryParam("qId") String queryID) throws OWLOntologyCreationException, FileNotFoundException {
 				
 		JSONObject jobject=new JSONObject(); 
-	//	JSONArray jarray=new JSONArray();
-		QFQueryCatalogAccessImpl impl=new QFQueryCatalogAccessImpl();	  
+		QFQueryCatalogAccessImpl impl=new QFQueryCatalogAccessImpl();	
 		switch (method){
-		  case "deleteAllQueries":  
-			  System.out.println("");
+		//Delete all available queries.
+		  case "deleteAllQueries": 
+			  impl.deleteAllQueries();
 		  break;
-		  case "deleteQuery":  System.out.println("String queryID");
+		  
+		//Deletes the given query
+		  case "deleteQuery":  
+			  impl.deleteQuery(queryID);
 		  break;
-		//  case "getAvailableQueries":  System.out.println("");
-		 // break;
-		  case "getAvailableQueryIds":  System.out.println("");
+		  
+		//Retrieves the set of available queries as JSON objects
+		  case "getAvailableQueries":  
+			  jobject = impl.getAvailableQueries();
 		  break;
-		  case "getAvailableSparqlQueries":  System.out.println("");
+		  
+		//Retrieves the set of available query IDs.
+		  case "getAvailableQueryIds":  
+			  jobject = impl.getAvailableQueryIds();
 		  break;
-		  case "getAvailableStarqlQueries":  System.out.println("");
+		  
+		//Retrieves the set of available sparql queries as JSON objects.
+		  case "getAvailableSparqlQueries":  
+			  jobject = impl.getAvailableSparqlQueries();
 		  break;
+		  
+		//Retrieves the data associated with the given query identifier
 		  case "getQuery":  
 			  jobject= impl.getQuery(queryID);
 		  break;
-		  case "saveQuery":  System.out.println("String name, String desc, String sparqlquery, String jsonquery, String status, String type");
+		}
+		return jobject.toString();   
+	  }
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON) 
+	@Produces(MediaType.APPLICATION_JSON)
+	public void postQFQueryCatalogAccess(
+			@QueryParam("method") String method,
+			@QueryParam("qname") String qname,
+			@QueryParam("desc") String desc,
+			@QueryParam("query") String query,
+			@QueryParam("jsonquery") String jsonquery,
+			@QueryParam("status") String status,
+			@QueryParam("type") String type,
+			@QueryParam("qId") String queryID) throws OWLOntologyCreationException, FileNotFoundException {
+		
+		QFQueryCatalogAccessImpl impl=new QFQueryCatalogAccessImpl();
+		switch (method){
+		//Saves the data associated with a query and returns the given query identifier
+		  case "saveQuery":  
+			  impl.saveQuery(qname, desc, query, jsonquery, status, type);
 		  break;
-		  case "testMethod":  System.out.println("");
-		  break;
-		  case "updateQuery":  System.out.println("String queryID, String name, String desc, String sparqlquery, String jsonquery, String status, String type");
+			  
+		//Updates an existent query
+		  case "updateQuery":  
+			  impl.updateQuery(queryID, qname, desc, query, jsonquery, status, type);
 		  break;
 		}
-			  if (method.equals("getAvailableQueries")){
-			        JSONParser parser = new JSONParser();
-
-				  try {     
-			        	Object  obj = parser.parse(new FileReader("E:\\UiO\\OptiqueVQS\\OptiqueVQS-Test\\JSON-data\\getQueries.json"));
-
-			             jobject =  (JSONObject) obj;
-			                   } catch (FileNotFoundException e) {
-			            e.printStackTrace();
-			        } catch (IOException e) {
-			            e.printStackTrace();
-			        } catch (ParseException e) {
-			            e.printStackTrace();
-			        }
-			        
-		  }
-		//	  else 	
-			  
-	    
-		  return jobject.toString();   
-	  }
+	}		
 }

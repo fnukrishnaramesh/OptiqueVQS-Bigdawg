@@ -1,141 +1,142 @@
+/*******************************************************************************
+ * Copyright 2017 by the Department of Informatics (University of Oslo) 
+ *******************************************************************************/
 package eu.optiquevqs.api.rest.resources;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 import eu.optiquevqs.api.rest.resources.impl.QFOntologyAccessImpl;
+import uk.ac.ox.cs.JRDFox.JRDFoxException;
 
 @Path("JSON/getQFOntologyAccess")
-@SuppressWarnings("unchecked")
 public class QFOntologyAccess {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)  
 	public String getQFOntologyAccess(
 			@QueryParam("method") String method,
-			@QueryParam("params") String ontologyURI) throws OWLOntologyCreationException {
+			@QueryParam("ontologyURI") String ontologyURI,
+			@QueryParam("ontologyVersionURI") String ontologyVersionURI,
+			@QueryParam("conceptURI") String conceptURI,
+			@QueryParam("partialQuery") String partialQuery,
+			@QueryParam("question") String question,
+			@QueryParam("runType") String runType) 
+					throws IOException, JSONException, JRDFoxException, IllegalArgumentException, OWLOntologyCreationException {
 		
 		JSONObject jobject=new JSONObject();
-		QFOntologyAccessImpl impl=new QFOntologyAccessImpl();
+		QFOntologyAccessImpl impl = new QFOntologyAccessImpl();
 
 		switch (method){
+		//Gets the list of identifiers of the available ontologies in the triple store
 		  case "getAvailableOntologies":  
-		      List<String> ontologyURIs= impl.getAvailableOntologies();
-		      jobject.put("result", ontologyURIs);
-		        break;
-		  case "getLoadedOntologies": 
-			//  List<String> ontologyURIs= impl.getLoadedOntologies();
-		     // jobject.put("result", ontologyURIs);
+			  jobject = impl.getAvailableOntologies();
 		      break;
+		      
+		//Gets the list of identifiers of the loaded ontologies in the VQS backend
+		  case "getLoadedOntologies": 
+			  jobject = impl.getLoadedOntologies();
+		      break;
+		      
+		//Removes the loaded ontologies in the VQS backend
 		  case "clearLoadedOntologies": 
-			  //impl.clearLoadedOntologies();
-				// jobject.put("result", ontologyURIs);
-			      break;
+			  impl.clearLoadedOntologies();
+			  break;
+			  
+		//Removes the loaded ontologies in the VQS backend
 		  case "clearLoadedOntology": 
-				//  impl.clearLoadedOntology(ontologyURI);
-			     // jobject.put("result", ontologyURIs);
-			      break;
+			  impl.clearLoadedOntology(ontologyURI);
+			  break;
+			  
+		//Gets as JSONObjects the core concepts of the ontology to be listed in the QF component
 		  case "getCoreConcepts": 
-				//  JSONObject result=new JSONObject();
-			  //result=impl.getCoreConcepts(ontologyURI);
-			     // jobject.put("result", result);
-			      break;
+			  if(ontologyURI != null && !ontologyURI.isEmpty())
+				  jobject=impl.getCoreConcepts(ontologyURI);
+			  else
+				  jobject=impl.getCoreConcepts();
+		      break;
+			  
+		//Given an URI ontology identifier loads a working ontology to extract the JSONObjects	  
 		  case "loadOntology": 
 			  impl.loadOntology(ontologyURI);
-		      jobject.put("result", null);
 		      break;
+		      
+		//Given an URI ontology identifier and version loads a working ontology to extract the JSONObjects      
 		  case "loadOntologyVersion": 
-			//  impl.loadOntologyVersion(ontologyURI,ontologyVersionURI);
-		    //  jobject.put("result", null);
+			  impl.loadOntologyVersion(ontologyURI, ontologyVersionURI);
 		      break;
+		      
+		//Given an URI ontology identifier re-loads a working ontology to extract the JSONObjects
 		  case "reLoadOntology": 
-				//  impl.reLoadOntology(ontologyURI);
-			    //  jobject.put("result", null);
-			      break;
+			  impl.reLoadOntology(ontologyURI);
+ 		      break;
+ 		      
+ 		//Given an URI ontology identifier set this ontology as a working ontology to extract the JSONObjects
 		  case "setOntology": 
-				//  impl.ontologyURI(ontologyURI);
-			    //  jobject.put("result", null);
-			      break;
+			  impl.setOntology(ontologyURI);
+		      break;
+		      
+		//Given an ontology and a concept URI/Id, retrieves as JSONObjects the associated facets with the concept
 		  case "getConceptFacets": 
-				//  JSONObject result=new JSONObject();
-			  //result=impl.getConceptFacets(ontologyURI,conceptURI,partialQuery);
-			     // jobject.put("result", result);
-			      break;
-		  case "getNeighbourConcepts": 
-				//  JSONObject result=new JSONObject();
-			  //result=impl.getNeighbourConcepts(ontologyURI,conceptURI,partialQuery);
-			     // jobject.put("result", result);
-			      break;
+			  if(ontologyURI != null && !ontologyURI.isEmpty())
+				  jobject=impl.getConceptFacets(ontologyURI, conceptURI, partialQuery);
+			  else
+				  jobject=impl.getConceptFacets(conceptURI);
+			  break;
+			  
+		//Given an ontology and a concept URI/Id, retrieves as JSONObjects the associated neighbours
+		  case "getNeighbourConcepts":
+			  if(ontologyURI != null && !ontologyURI.isEmpty())
+				  jobject = impl.getNeighbourConcepts(ontologyURI, conceptURI, partialQuery);
+			  else
+				  jobject = impl.getNeighbourConcepts(conceptURI);
+		      break;
+		      
+		//Generates an SPARQL query given a sentence in natural language
 		  case "generateSPARQLQueryFromText": 
-				//  JSONObject result=new JSONObject();
-			  //result=impl.generateSPARQLQueryFromText(ontologyURIStr,question,runType);
-			     // jobject.put("result", result);
-			      break;
-		  case "getDirectSubclasses": 
-				//  JSONObject result=new JSONObject();
-			  //result=impl.getConceptFacets(ontologyURI,conceptURI);
-			     // jobject.put("result", result);
-			      break;
-		  case "getAllSubclasses": 
-				//  JSONObject result=new JSONObject();
-			  //result=impl.getAllSubclasses(ontologyURI,conceptURI);
-			     // jobject.put("result", result);
-			      break;
+			  jobject = impl.generateSPARQLQueryFromText(ontologyURI, question, runType);
+			  break;
+			  
+		//Given an ontology and a concept URI/Id, retrieves the direct subclasses
+		  case "getDirectSubclasses":
+			  if(ontologyURI != null && !ontologyURI.isEmpty())
+				  jobject = impl.getDirectSubclasses(ontologyURI, conceptURI);
+			  else
+				  jobject = impl.getDirectSubclasses(conceptURI);
+			  break;
+			  
+		//Given an ontology and a concept URI/Id, retrieves all the subclasses
+		  case "getAllSubclasses":
+			  if(ontologyURI != null && !ontologyURI.isEmpty())
+				  jobject = impl.getAllSubclasses(ontologyURI, conceptURI);
+			  else
+				  jobject = impl.getAllSubclasses(conceptURI);
+		      break;
+		      
+		//Given an ontology and a concept URI/Id, retrieves the direct superclasses
 		  case "getDirectSuperclasses": 
-				//  JSONObject result=new JSONObject();
-			  //result=impl.getDirectSuperclasses(ontologyURI,conceptURI);
-			     // jobject.put("result", result);
-			      break;
+			  if(ontologyURI != null && !ontologyURI.isEmpty())
+				  jobject = impl.getDirectSuperclasses(ontologyURI, conceptURI);
+			  else
+				  jobject = impl.getDirectSuperclasses(conceptURI);
+			  break;
+			  
+		//Given an ontology and a concept URI/Id, retrieves all the superclasses
 		  case "getAllSuperclasses": 
-				//  JSONObject result=new JSONObject();
-			  //result=impl.getAllSuperclasses(ontologyURI,conceptURI);
-			     // jobject.put("result", result);
-			      break;
-		}		
-		if (method.equals("getDirectSubclasses")){
-	        JSONParser parser = new JSONParser();
-
-		  try {     
-	        	Object  obj = parser.parse(new FileReader("E:\\UiO\\OptiqueVQS\\OptiqueVQS-Test\\JSON-data\\getDirectSubclasses.json"));
-
-	             jobject =  (JSONObject) obj;
-	                   } catch (FileNotFoundException e) {
-	            e.printStackTrace();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        } catch (ParseException e) {
-	            e.printStackTrace();
-	        }
-	        
-  }
-	  else if (method.equals("getNeighbourConcepts")){
-	        JSONParser parser = new JSONParser();
-
-		  try {     
-	        	Object  obj = parser.parse(new FileReader("E:\\UiO\\OptiqueVQS\\OptiqueVQS-Test\\JSON-data\\getNeighbourConcepts.json"));
-
-	             jobject =  (JSONObject) obj;
-	                   } catch (FileNotFoundException e) {
-	            e.printStackTrace();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        } catch (ParseException e) {
-	            e.printStackTrace();
-	        }
-	        
-  }
+			  if(ontologyURI != null && !ontologyURI.isEmpty())
+				  jobject = impl.getAllSuperclasses(ontologyURI, conceptURI);
+			  else
+				  jobject = impl.getAllSuperclasses(conceptURI);
+		      break;
+		}
+		
 		jobject.put("id", "1");
         jobject.put("jsonrpc", "2.0");	
 	  return jobject.toString();   
