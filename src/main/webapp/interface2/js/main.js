@@ -1,6 +1,3 @@
-// a temproray fix for the initinally
-// hidden Table iframe - if set to 1 that means
-// iframe is already loaded, no need to change the src
 var tmp = 0;
 
 $(document).ready(function() {
@@ -8,11 +5,6 @@ $(document).ready(function() {
 	$.ajaxSetup({
 		cache : false
 	});
-
-	//console.log(document.referrer);
-	//should come from index page
-	//if (document.referrer == "")
-	//	window.location.href = "index.html";
 
 	$('body').on('click', '#approve', function(event) {
 		Channel.ClearMessage();
@@ -70,27 +62,9 @@ function inform(mss) {
 
 function activateComp(part, query) {
 	if (part == 'result') {
-		/*//extract repository paramater and forward it to iwb
-		 var repository = (getURLParameter($(location).attr('href'), "repository") != null) ? getURLParameter($(location).attr('href'), "repository") : "RDF";
-		 //redirect
-
-		 if (repository != "RDF") {
-		 var url = getBaseUrl() + "/search/?q=" + encodeURIComponent(query) + "&infer=false&queryLanguage=SPARQL&queryTarget=" + repository + "&repository=" + repository;
-		 //window.top.location.href = "http://127.0.0.1:8888/search/?q=" + encodeURIComponent(query) + "&infer=false&queryLanguage=SPARQL&queryTarget="+repository+"&repository="+repository;
-		 window.open(url, '_blank');
-		 } else {
-		 var url = getBaseUrl() + "/search/?q=" + encodeURIComponent(query) + "&infer=false&queryLanguage=SPARQL&queryTarget=" + repository;
-		 //window.top.location.href = "http://127.0.0.1:8888/search/?q=" + encodeURIComponent(query) + "&infer=false&queryLanguage=SPARQL&queryTarget="+repository;
-		 window.open(url, '_blank');
-		 }*/
 		$('#bottom_qf').hide();
 		$('#bottom_res').show();
-
-		//if (tmp == 0) {
 		$('#Table').attr('src', 'widgets/TableOptique/index.html');
-		//	tmp = 1;
-		//}
-
 	} else {
 		$('#bottom_qf').show();
 		$('#bottom_res').hide();

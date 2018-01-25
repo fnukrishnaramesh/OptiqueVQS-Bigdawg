@@ -20,16 +20,6 @@ $(document).ready(function() {
 	// experiment stuff
 	exp = getURLParameter($(parent.location).attr('href'), "exp");
 
-	//call geoLocation widget - no longer used
-	/*$('body').on('click', '.geoLocation', function(event) {
-		Facet.deliverEvent($(this), 'geoLocation');
-	});
-
-	//call temporal widget
-	$('body').on('click', '.temporal', function(event) {
-		Facet.deliverEvent($(this), 'temporal');
-	});*/
-
 	//add attribute to output
 	$('body').on('click', '.add', function(event) {
 		Facet.deliverEvent($(this), 'attributeAdded');

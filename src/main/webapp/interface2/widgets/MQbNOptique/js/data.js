@@ -36,7 +36,7 @@ function getURLParameter(url, name) {
 function getConcepts(cId, id, reCreate) {
 	if (cId == '0') {
 		$.ajax({
-			url : this.getBaseUrl() + "/REST/JSON/getQFOntologyAccess/?method=getCoreConcepts&params=[%22" + dataModel.encodeSpecial(getURLParameter($(parent.location).attr('href'), "ontologyURI")) + "%22]&id=1",
+			url : this.getBaseUrl() + "/REST/JSON/getQFOntologyAccess/?method=getCoreConcepts&ontologyURI=" + dataModel.encodeSpecial(getURLParameter($(parent.location).attr('href'), "ontologyURI")) + "&id=1",
 			dataType : 'json',
 			context : document.body
 		}).done(function(data) {
@@ -46,7 +46,7 @@ function getConcepts(cId, id, reCreate) {
 
 	} else {
 		$.ajax({
-			url : this.getBaseUrl() + "/REST/JSON/getQFOntologyAccess/?method=getNeighbourConcepts&params=[%22" + dataModel.encodeSpecial(getURLParameter($(parent.location).attr('href'), "ontologyURI")) + "%22, %22" + dataModel.encodeSpecial(cId) + "%22, %22%22]&id=1",
+			url : this.getBaseUrl() + "/REST/JSON/getQFOntologyAccess/?method=getNeighbourConcepts&ontologyURI=" + dataModel.encodeSpecial(getURLParameter($(parent.location).attr('href'), "ontologyURI")) + "&conceptId=" + dataModel.encodeSpecial(cId) + "&partialQuery=&id=1",
 			dataType : 'json',
 			context : document.body
 		}).done(function(data) {

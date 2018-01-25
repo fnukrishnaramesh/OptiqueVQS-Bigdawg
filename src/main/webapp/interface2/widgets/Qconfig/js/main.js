@@ -11,6 +11,7 @@ $(document).ready(function() {
 		Channel.ClearMessage();
 		Channel.message.type = 'Qconfig';
 		Channel.message.content = new Object();
+		Channel.message.content.sparqlendpoint = $("#sparqlendpoint").val();
 		Channel.message.content.distinct = $("#distinct").val();
 		Channel.message.content.example = $("#example").val();
 		Channel.message.content.longids = $("#longids").val();
@@ -27,6 +28,8 @@ function Qconfig() {
 }
 
 function setValues(dt) {
+	$("#sparqlendpoint").val(dt.content.sparqlendpoint);
+	//$("#sparqlendpoint").selectmenu('refresh');
 	$("#example").val(dt.content.example);
 	$("#example").selectmenu('refresh');
 	$("#longids").val(dt.content.longids);

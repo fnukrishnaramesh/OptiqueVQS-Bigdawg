@@ -36,8 +36,10 @@ public class QFOntologyAccessImpl {
     }
 	
 	public JSONObject getAvailableOntologies() throws FileNotFoundException, JRDFoxException{
-		//return vqs.getOntologies();
-		return ReadJsonFile.readFile(QFOntologyAccessImpl.class.getResource("../../../../json/inputfiles/getAvailableOntologies.json").getPath());
+		vqs.loadOntologySession("file:E:/Uio/example.owl");
+
+		return vqs.getOntologies();
+		//return ReadJsonFile.readFile(QFOntologyAccessImpl.class.getResource("../../../../json/inputfiles/getAvailableOntologies.json").getPath());
 
 	}
 	

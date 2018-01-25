@@ -33,12 +33,32 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// The VQS web application starts with the Jetty server
 public class JettyStart {
 	
     private static final Logger LOGGER = LoggerFactory.getLogger(JettyStart.class);
     static final int DEFAULT_HTTP_PORT = 8080;
     static final int DEFAULT_HTTPS_PORT = 8443;
     static final int DEFAULT_STOP_PORT = 8090;
+    private final int httpPort;
+    private final int httpsPort;
+    private final int stopPort;
+    
+    public JettyStart(int httpPort, int httpsPort, int stopPort) {
+        this.httpPort = httpPort;
+        this.httpsPort = httpsPort;
+        this.stopPort = stopPort;
+    }
+    
+    public JettyStart(int httpPort, int httpsPort) {
+        this.httpPort = httpPort;
+        this.httpsPort = httpsPort;
+        this.stopPort = DEFAULT_STOP_PORT;
+    }
+    
+    public JettyStart() {
+        this(DEFAULT_HTTP_PORT, DEFAULT_HTTPS_PORT, DEFAULT_STOP_PORT);
+    }
     
     //Stop Server
     static public void stop() {
@@ -91,6 +111,18 @@ public class JettyStart {
     
 	public static void main(String[] args) throws Exception {
 
+        JettyStart jettyStart = null;
+        if (args.length == 3) {
+        	jettyStart = new JettyStart(Integer.valueOf(args[0]), Integer.valueOf(args[1]), Integer.valueOf(args[2]));
+        } else if (args.length == 2) {
+        	jettyStart = new JettyStart(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
+        } else {
+        	jettyStart = new JettyStart();
+        }
+        jettyStart.start();
+	}
+	
+    public void start() throws Exception {
 		Server server = new Server();
 
 		// HTTP Configuration
@@ -98,13 +130,13 @@ public class JettyStart {
 		http.addCustomizer(new SecureRequestCustomizer());
 
 		//Configuration for HTTPS redirect
-		http.setSecurePort(DEFAULT_HTTPS_PORT);
+		http.setSecurePort(httpsPort);
 		http.setSecureScheme("https");
 		
 		ServerConnector connector = new ServerConnector(server);
 		connector.addConnectionFactory(new HttpConnectionFactory(http));
 		connector.setName("unsecured"); // Named connector
-		connector.setPort(DEFAULT_HTTP_PORT);//Setting HTTP  port
+		connector.setPort(httpPort);//Setting HTTP  port
 
 		// Configuring SSL
 		SslContextFactory sslContextFactory = new SslContextFactory();
@@ -120,7 +152,7 @@ public class JettyStart {
 				
 		ServerConnector sslConnector = new ServerConnector(server, new SslConnectionFactory(sslContextFactory, "http/1.1"), new HttpConnectionFactory(https));
 		sslConnector.setName("secured"); // Named connector
-		sslConnector.setPort(DEFAULT_HTTPS_PORT);//Setting HTTPs  port
+		sslConnector.setPort(httpsPort);//Setting HTTPs  port
 		
 		// Setting HTTP and HTTPS connectors
 		server.setConnectors(new Connector[]{connector, sslConnector});
@@ -173,11 +205,11 @@ public class JettyStart {
 		try {
 			server.start();
 			LOGGER.info("Jetty server started");
-			LOGGER.info("HTTPS URL: https://{}:{}", InetAddress.getLocalHost().getHostAddress(), DEFAULT_HTTPS_PORT);
-			LOGGER.info("HTTP URL: http://{}:{}", InetAddress.getLocalHost().getHostAddress(), DEFAULT_HTTP_PORT);
-			LOGGER.info("Port to stop Jetty with the 'stop' operation: {}", DEFAULT_STOP_PORT);
+			LOGGER.info("HTTPS URL: https://{}:{}", InetAddress.getLocalHost().getHostAddress(), httpsPort);
+			LOGGER.info("HTTP URL: http://{}:{}", InetAddress.getLocalHost().getHostAddress(), httpPort);
+			LOGGER.info("Port to stop Jetty with the 'stop' operation: {}", stopPort);
 
-			Monitor monitor = new Monitor(DEFAULT_STOP_PORT, new Server[]{server});
+			Monitor monitor = new Monitor(stopPort, new Server[]{server});
 			monitor.start();
 
 			server.join();

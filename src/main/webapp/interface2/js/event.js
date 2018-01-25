@@ -26,9 +26,6 @@ function addlistener() {
 				confirm(data.content.mss, data.content.bck);
 			} else if (data.type == "info") {
 				inform(data.content.mss);
-				/* Temporal and Geo-graphical is no longer needed
-			} else if (data.type == 'temporal') {
-				callWidget(data);*/
 			} else if (data.type == 'Qconfig'){
 				callWidget(data);
 			} else if (data.type == 'reExecuteQuery') {
@@ -47,22 +44,15 @@ function addlistener() {
 				//	}
 			}
 		} else if (getFrameName(source) == 'Faceted') {
-/*Temporal and Geo-location is no longer used
-			if (data.type == 'geoLocation') {
-				callWidget(data);
-			} else {*/
-				Channel.message = data;
-				Channel.Send('Graph');
-			//}
+			Channel.message = data;
+			Channel.Send('Graph');
 		} else if (getFrameName(source) == 'widget') {
 			Channel.message = data;
-			/*if (data.type == 'temporal')
-				Channel.Send('Graph');
-			else*/ if (data.type == 'Qconfig')
+			if (data.type == 'Qconfig')
 				Channel.Send('Graph');
 			else
 				Channel.Send('Faceted');
-			$("#popupWidget").popup("close");
+				$("#popupWidget").popup("close");
 		} else if (getFrameName(source) == 'Table') {
 			Channel.message = data;
 			if (data.type == "sequence" || data.type == "aggregate" || data.type == "stream_op")

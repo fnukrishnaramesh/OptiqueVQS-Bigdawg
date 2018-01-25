@@ -14,9 +14,7 @@ function addlistener() {
 		} else if (data.type == 'instanceSelected') {
 			Facet.setConstraint(data.content.constraint);
 			Facet.deliverEvent($("#" + Facet.getAttrId(data.content.constraint.id)), "attributeConstrained");
-		} else if(data.type == 'temporal'){
-			Facet.addExt(data.content.attr.id, data.content.ext, "temporal");
-		}
+		} 
 
 	};
 

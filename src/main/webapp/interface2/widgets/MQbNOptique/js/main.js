@@ -10,7 +10,6 @@ $(document).ready(function() {
 	mQbN = new MQbN();
 	//attach option click event
 	$('body').on('click', '.option', function(event) {
-		//mQbN.getPage($(this).attr('id'), $(this).find('h2').attr('conceptLabel'), 'slide');
 		mQbN.deliverEvent('conceptSelected', $(this));
 	});
 	//attach home click event
@@ -65,7 +64,6 @@ function getDefaultImage() {
 		base = window.location.protocol + '//' + window.location.host + window.location.pathname.replace('index.html', '');
 	else
 		base = window.location.host + window.location.pathname.replace('index.html', '');
-
 	return base + "images/gear.png"
 }
 
@@ -86,11 +84,6 @@ function createPage(id, title, bck, home) {
 	content += '</ul>';
 	content += '</div>';
 	content += '</div>';
-
-	//footer
-	//content += '<div data-role="footer" class="ui-bar" data-position="fixed" data-id="myfooter">';
-	//content += '<h1>Footer</h1>';
-	//content += '</div>';
 
 	content += '</div>';
 	content = $(content);
@@ -138,11 +131,8 @@ function listOptions(result) {
 				str2 = 'propAnnt="stream"';
 			}
 		}
-
-		//console.log(result.options);
 		content += '<li class="option" id="' + result.options[i].id + '" conceptName ="' + result.options[i].name + '" conceptNs ="' + result.options[i].ns + '"' + str + '>';
 		content += '<a href="#"><img src="' + ( typeof result.options[i].icon == "undefined" ? mQbN.getDefaultImage() : result.options[i].icon) + '">';
-		//content += '<a href="#"><img src="http://127.0.0.1:8888/interface/widgets/MQbNOptique/etc/data2/icons/'+result.options[i].name +'.png">';
 		content += '<h2 conceptLabel="' + result.options[i].label + '">' + result.options[i].label + '</h2>';
 		content += '<p propId="' + ( typeof result.options[i].prop == "undefined" ? "" : result.options[i].prop.id) + '"';
 		content += ' propName="' + ( typeof result.options[i].prop == "undefined" ? "" : result.options[i].prop.name) + '"';

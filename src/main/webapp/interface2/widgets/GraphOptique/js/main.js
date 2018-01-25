@@ -10,6 +10,7 @@ var sparqlv;
 
 //config parameters
 var Qconfig = new Object();
+Qconfig.sparqlendpoint = '';
 Qconfig.distinct = 'no';
 Qconfig.example = 'yes';
 Qconfig.longids = 'yes';
@@ -862,6 +863,7 @@ function myTree() {
 	}
 	//update query conf.
 	this.updateQConfig = function(data) {
+		Qconfig.sparqlendpoint = data.sparqlendpoint;
 		Qconfig.distinct = data.distinct;
 		Qconfig.longids = data.longids;
 		Qconfig.example = data.example;
@@ -1573,6 +1575,7 @@ function myTree() {
 		var distinct = '';
 		var limit = '';
 		var lid = '';
+		var sparqlendpoint = '';
 
 		if (Qconfig.distinct == 'yes')
 			distinct = ' DISTINCT';
@@ -1580,7 +1583,9 @@ function myTree() {
 			limit = ' LIMIT ' + Qconfig.limit;
 		if (Qconfig.longids == 'yes')
 			lid = 's';
-
+		if (Qconfig.sparqlendpoint != '')
+			sparqlendpoint = Qconfig.sparqlendpoint;
+		
 		for (var i = 0; i < SparqlObj.prfx.length; i++)
 			query += SparqlObj.prfx[i] + '\n';
 		query += '\nSELECT' + distinct;
@@ -2141,6 +2146,7 @@ function myTree() {
 				Channel.message.content.output = tree.getOutputVars();
 				Channel.message.content.longids = Qconfig.longids;
 				Channel.message.content.example = Qconfig.example;
+				Channel.message.content.sparqlendpoint = Qconfig.sparqlendpoint;
 			} else {
 				Channel.message.content.qtype = "plain";
 				Channel.message.content.query = tree.getSparql(SparqlObj);
@@ -2149,6 +2155,7 @@ function myTree() {
 				Channel.message.content.output = tree.getOutputVars();
 				Channel.message.content.longids = Qconfig.longids;
 				Channel.message.content.example = Qconfig.example;
+				Channel.message.content.sparqlendpoint = Qconfig.sparqlendpoint;
 
 			}
 		} else if (type == 'info') {
