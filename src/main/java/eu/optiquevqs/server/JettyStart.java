@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 public class JettyStart {
 	
     private static final Logger LOGGER = LoggerFactory.getLogger(JettyStart.class);
-    static final int DEFAULT_HTTP_PORT = 8080;
+    static final int DEFAULT_HTTP_PORT = 8085;
     static final int DEFAULT_HTTPS_PORT = 8443;
     static final int DEFAULT_STOP_PORT = 8090;
     private final int httpPort;
