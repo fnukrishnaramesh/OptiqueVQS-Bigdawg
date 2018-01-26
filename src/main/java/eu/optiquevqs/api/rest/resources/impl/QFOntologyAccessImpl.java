@@ -3,6 +3,7 @@ package eu.optiquevqs.api.rest.resources.impl;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,8 +20,8 @@ public class QFOntologyAccessImpl {
 	OptiqueVQSAPI vqs = new OptiqueVQSAPI();
 
 	public void loadOntology(String ontologyURIStr) throws IllegalArgumentException{		
-		defaultURI = ontologyURIStr;
-		vqs.loadOntologySession(ontologyURIStr);
+		//defaultURI = ontologyURIStr;
+		//vqs.loadOntologySession(ontologyURIStr);
 	}
 		
 	public void loadOntologyVersion(String ontologyURIStr, String ontologyURIVersionStr)
@@ -36,10 +37,8 @@ public class QFOntologyAccessImpl {
     }
 	
 	public JSONObject getAvailableOntologies() throws FileNotFoundException, JRDFoxException{
-		vqs.loadOntologySession("file:E:/Uio/example.owl");
-
-		return vqs.getOntologies();
-		//return ReadJsonFile.readFile(QFOntologyAccessImpl.class.getResource("../../../../json/inputfiles/getAvailableOntologies.json").getPath());
+		//return vqs.getOntologies();
+		return ReadJsonFile.readFile("getAvailableOntologies.json");
 
 	}
 	
@@ -60,7 +59,7 @@ public class QFOntologyAccessImpl {
 	}
 	
 	public JSONObject getConceptFacets(String ontologyURIStr, String conceptURI, String partialQuery) throws IllegalArgumentException,JSONException{
-		return ReadJsonFile.readFile(QFOntologyAccessImpl.class.getResource("../../../../json/inputfiles/getConceptFacets.json").getPath());
+		return ReadJsonFile.readFile("getConceptFacets.json");
 	}
 	
 	public JSONObject getNeighbourConcepts(
@@ -73,7 +72,7 @@ public class QFOntologyAccessImpl {
 	}
 	
 	private JSONObject getNeighbourConcepts(String ontologyURIStr, String conceptURI, String partialQuery, boolean includeInverses) throws IllegalArgumentException,JSONException{
-		return ReadJsonFile.readFile(QFOntologyAccessImpl.class.getResource("../../../../json/inputfiles/getNeighbourConcepts.json").getPath());
+		return ReadJsonFile.readFile("getNeighbourConcepts.json");
 	}
 	
 	public JSONObject generateSPARQLQueryFromText(
@@ -94,7 +93,7 @@ public class QFOntologyAccessImpl {
 	
 	public JSONObject getDirectSubclasses(String ontologyURIStr, String conceptURI)
 			throws IllegalArgumentException, JSONException {
-		return ReadJsonFile.readFile(QFOntologyAccessImpl.class.getResource("../../../../json/inputfiles/getDirectSubclasses.json").getPath());
+		return ReadJsonFile.readFile("getDirectSubclasses.json");
 
 	}
 	
