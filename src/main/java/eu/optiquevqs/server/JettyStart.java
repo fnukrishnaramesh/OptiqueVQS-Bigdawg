@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.URL;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -159,20 +160,16 @@ public class JettyStart {
 		
 		// Wire up contexts for secure handling to named connector
         String secureHosts[] = new String[] { "@secured" };
-
-        //Creating the Fuseki web application context
-  		WebAppContext fusekiwebapp = new WebAppContext();
-  		fusekiwebapp.setWar("../OptiqueVQS/src/main/webapp/fuseki/fuseki.war");
-  		fusekiwebapp.setContextPath("/fuseki");
-  		fusekiwebapp.setVirtualHosts(secureHosts);
   		
-      		
-      	//Creating the web application context
-		WebAppContext webapp = new WebAppContext();
-		webapp.setDescriptor(webapp + "/WEB-INF/web.xml");
-		webapp.setResourceBase("../OptiqueVQS/src/main/webapp");
+  		WebAppContext webapp = new WebAppContext();
+		webapp.setDescriptor("webapp" + "/WEB-INF/web.xml");
+		URL webAppDir = Thread.currentThread().getContextClassLoader().getResource("webapp");
+        if (webAppDir == null) {
+            throw new RuntimeException(String.format("No %s directory was found into the JAR file", "webapp"));
+        }
+		webapp.setResourceBase(webAppDir.toURI().toString());
 		webapp.setContextPath("/");
-        
+
 		webapp.setParentLoaderPriority(true);
   		webapp.setVirtualHosts(secureHosts);
   		          	  		
@@ -186,7 +183,7 @@ public class JettyStart {
         // Establish all handlers that have a context
         ContextHandlerCollection contextHandlers = new ContextHandlerCollection();
         contextHandlers.setHandlers(new Handler[]
-        { redirectHandler, webapp, fusekiwebapp });
+        { redirectHandler, webapp });
         
         // Create server level handler tree
         HandlerList handlers = new HandlerList();
@@ -198,7 +195,8 @@ public class JettyStart {
         //HashLogin Basic Authentication
         HashLoginService loginService = new HashLoginService();
         loginService.setName( "VQS Login Realm" );
-        loginService.setConfig( "src/main/resources/realm.properties" );
+        URL realmDir = Thread.currentThread().getContextClassLoader().getResource("realm.properties");
+        loginService.setConfig(realmDir.toURI().toString());
         server.addBean( loginService );
         
 		// Starting the Server

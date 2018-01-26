@@ -20,7 +20,7 @@ public class QFQueryCatalogAccessImpl {
 	}
 	
 	public JSONObject getAvailableQueries() throws JSONException, MalformedQueryException, QueryEvaluationException {
-		return ReadJsonFile.readFile(QFQueryCatalogAccessImpl.class.getResource("../../../../json/inputfiles/getQueries.json").getPath());
+		return ReadJsonFile.readFile("getQueries.json");
 	}
 	
 	public JSONObject getAvailableQueryIds() throws MalformedQueryException, QueryEvaluationException{
@@ -39,13 +39,13 @@ public class QFQueryCatalogAccessImpl {
 			String status,
 			String type)
 			throws IllegalArgumentException, MalformedQueryException, UpdateExecutionException {
-		return ReadJsonFile.readFile(QFQueryCatalogAccessImpl.class.getResource("../../../../json/inputfiles/saveQuery.json").getPath());
+		return ReadJsonFile.readFile("saveQuery.json");
 	}
 	 
 	public JSONObject getQuery(
 			String queryID)
 			throws IllegalArgumentException, JSONException, MalformedQueryException, QueryEvaluationException {
-		return ReadJsonFile.readFile(QFQueryCatalogAccessImpl.class.getResource("../../../../json/inputfiles/getQuery.json").getPath());
+		return ReadJsonFile.readFile("getQuery.json");
 	}
 	
 	public boolean updateQuery(
