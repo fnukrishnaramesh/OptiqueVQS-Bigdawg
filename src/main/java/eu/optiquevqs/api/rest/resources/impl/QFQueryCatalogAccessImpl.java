@@ -46,6 +46,7 @@ public class QFQueryCatalogAccessImpl {
 			String queryID)
 			throws IllegalArgumentException, JSONException, MalformedQueryException, QueryEvaluationException {
 		return ReadJsonFile.readFile("getQuery.json");
+		//return new JSONObject();
 	}
 	
 	public boolean updateQuery(

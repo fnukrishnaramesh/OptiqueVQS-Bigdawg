@@ -17,8 +17,21 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import eu.optiquevqs.api.rest.resources.impl.QFOntologyAccessImpl;
 import uk.ac.ox.cs.JRDFox.JRDFoxException;
 
+
+
+
+
+
 @Path("JSON/getQFOntologyAccess")
 public class QFOntologyAccess {
+	
+	QFOntologyAccessImpl impl = new QFOntologyAccessImpl();
+	
+	public QFOntologyAccess(){
+		//QFOntologyAccessImpl impl = new QFOntologyAccessImpl();
+	}
+	
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)  
 	public String getQFOntologyAccess(
@@ -31,9 +44,13 @@ public class QFOntologyAccess {
 			@QueryParam("runType") String runType) 
 					throws IOException, JSONException, JRDFoxException, IllegalArgumentException, OWLOntologyCreationException {
 		
+		
 		JSONObject jobject=new JSONObject();
-		QFOntologyAccessImpl impl = new QFOntologyAccessImpl();
-
+		
+		//TODO This cannot be here, otherwise it reinitializes the session everytime
+		//QFOntologyAccessImpl impl = new QFOntologyAccessImpl();
+		
+		
 		switch (method){
 		//Gets the list of identifiers of the available ontologies in the triple store
 		  case "getAvailableOntologies":  
