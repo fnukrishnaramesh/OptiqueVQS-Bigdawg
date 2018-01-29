@@ -21,8 +21,10 @@
 	<div data-role="page">
 		<div data-role="content" id="content">
 			<img src="images/logo-optique.png" id="logo">
-			<select name="ontologies" id="ontology">
-				<option value="none" selected="selected">Please select a data domain</option>				
+			<p>Please Enter Ontology URI</p>
+			<input type="text" id="OntURI">
+			<select name="ontologies" id="ontology" >
+				<option value="none" selected="selected">Available Ontologies</option>				
 			</select>	
 			<input type="submit" id="loadOnt" value="Load" data-icon="grid" data-iconpos="right" data-theme="b" >
 		</div>

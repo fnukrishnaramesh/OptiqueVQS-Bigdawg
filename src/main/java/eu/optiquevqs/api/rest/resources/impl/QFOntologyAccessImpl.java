@@ -20,8 +20,8 @@ public class QFOntologyAccessImpl {
 	OptiqueVQSAPI vqs = new OptiqueVQSAPI();
 
 	public void loadOntology(String ontologyURIStr) throws IllegalArgumentException{		
-		//defaultURI = ontologyURIStr;
-		//vqs.loadOntologySession(ontologyURIStr);
+		defaultURI = ontologyURIStr;
+		vqs.loadOntologySession(ontologyURIStr);
 	}
 		
 	public void loadOntologyVersion(String ontologyURIStr, String ontologyURIVersionStr)
@@ -37,8 +37,8 @@ public class QFOntologyAccessImpl {
     }
 	
 	public JSONObject getAvailableOntologies() throws FileNotFoundException, JRDFoxException{
-		//return vqs.getOntologies();
-		return ReadJsonFile.readFile("getAvailableOntologies.json");
+		return vqs.getOntologies();
+	//	return ReadJsonFile.readFile("getAvailableOntologies.json");
 
 	}
 	
