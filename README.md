@@ -21,7 +21,7 @@ Build and package the web application
 > mvn clean install
 
 Start the web application
-> mvn exec:java
+> mvn exec:java@VQSStart
 
 The server is started and the application is running. 
 Browse the page using the URL, The HTTP URL
@@ -29,6 +29,9 @@ Browse the page using the URL, The HTTP URL
 
 The HTTPS URL
 > localhost:8443
+
+Stop the server by running the following command in another terminal
+> mvn exec:java@VQSStop
 
 ## Build
 1. Uses Maven as a build tool

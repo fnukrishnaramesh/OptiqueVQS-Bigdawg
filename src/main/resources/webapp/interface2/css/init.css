@@ -23,15 +23,6 @@ body {
     margin-left: -15em; /*set to a negative number 1/2 of your width*/ 
 }
 
-#Fileupload {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-}
-
 #logo{
 	width: 200px;
 }

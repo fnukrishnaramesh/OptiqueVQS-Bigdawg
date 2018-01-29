@@ -32,7 +32,9 @@ public class Test {
 		
 		try {
 			
-			String onto_url = "file:E:/Uio/example.owl";
+			//String onto_url = "file:E:/Uio/example.owl";
+			String onto_url = "http://dbpedia.org";
+
 
 			//String onto_url = "file:E:/ontologyExport_ (1).rdf";
 			

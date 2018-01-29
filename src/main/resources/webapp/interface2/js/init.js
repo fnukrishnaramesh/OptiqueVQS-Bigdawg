@@ -33,6 +33,10 @@ $(document).ready(function() {
 			informLoad();
 			loadOntology($("#ontology").val());
 		}
+		else if ($("#OntURI").val()) {
+			informLoad();
+			loadOntology($("#OntURI").val());
+		} 
 	});
 });
 
