@@ -4,10 +4,13 @@
 package eu.optiquevqs.api.rest.resources;
 
 import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import org.json.JSONException;
@@ -15,6 +18,8 @@ import org.json.JSONObject;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 import eu.optiquevqs.api.rest.resources.impl.QFOntologyAccessImpl;
+import eu.optiquevqs.server.RDFoxSessionContextListener;
+import uio.ifi.ontology.toolkit.projection.controller.triplestore.RDFoxSessionManager;
 import uk.ac.ox.cs.JRDFox.JRDFoxException;
 
 
@@ -25,11 +30,9 @@ import uk.ac.ox.cs.JRDFox.JRDFoxException;
 @Path("JSON/getQFOntologyAccess")
 public class QFOntologyAccess {
 	
-	QFOntologyAccessImpl impl = new QFOntologyAccessImpl();
-	
-	public QFOntologyAccess(){
-		//QFOntologyAccessImpl impl = new QFOntologyAccessImpl();
-	}
+	//We need to define a context to keep the sessions. For each of the method we should give the session as input.
+	@Context
+	ServletContext context;
 	
 	
 	@GET
@@ -45,10 +48,14 @@ public class QFOntologyAccess {
 					throws IOException, JSONException, JRDFoxException, IllegalArgumentException, OWLOntologyCreationException {
 		
 		
+		//Get context
+		RDFoxSessionManager session = (RDFoxSessionManager) context
+				.getAttribute(RDFoxSessionContextListener.RDFOX_SESSION);
+		
 		JSONObject jobject=new JSONObject();
 		
-		//TODO This cannot be here, otherwise it reinitializes the session everytime
-		//QFOntologyAccessImpl impl = new QFOntologyAccessImpl();
+		
+		QFOntologyAccessImpl impl = new QFOntologyAccessImpl(session);
 		
 		
 		switch (method){

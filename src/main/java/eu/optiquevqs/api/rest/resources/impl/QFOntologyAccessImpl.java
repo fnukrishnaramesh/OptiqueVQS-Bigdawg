@@ -12,18 +12,27 @@ import org.openrdf.query.QueryEvaluationException;
 import org.openrdf.query.UpdateExecutionException;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
+import uio.ifi.ontology.toolkit.projection.controller.triplestore.RDFoxSessionManager;
 import uio.ifi.ontology.toolkit.projection.view.OptiqueVQSAPI;
 import uk.ac.ox.cs.JRDFox.JRDFoxException;
 
 public class QFOntologyAccessImpl {
+	
 	private String defaultURI;
-	OptiqueVQSAPI vqs = new OptiqueVQSAPI();
+	OptiqueVQSAPI vqs;
+	
+	public QFOntologyAccessImpl(RDFoxSessionManager session){
+		vqs = new OptiqueVQSAPI(session);
+	}
 
 	public void loadOntology(String ontologyURIStr) throws IllegalArgumentException{		
+		
+		
 		defaultURI = ontologyURIStr;
 		vqs.loadOntologySession(ontologyURIStr);
 	}
-		
+	
+	//TODO
 	public void loadOntologyVersion(String ontologyURIStr, String ontologyURIVersionStr)
 			throws IllegalArgumentException, OWLOntologyCreationException,
 			UnsupportedEncodingException, JSONException {
@@ -33,6 +42,8 @@ public class QFOntologyAccessImpl {
     public void reLoadOntology(String ontologyURIStr) throws IllegalArgumentException,OWLOntologyCreationException, UnsupportedEncodingException, JSONException{
     }
     
+    
+    //TODO
     public void setOntology(String ontologyIRI) throws IllegalArgumentException, UnsupportedEncodingException, JSONException, OWLOntologyCreationException{
     }
 	
