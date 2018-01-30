@@ -26,6 +26,13 @@
     <url-pattern>/REST/*</url-pattern>
   </servlet-mapping>
   
+  
+  <listener>
+		<listener-class>eu.optiquevqs.server.RDFoxSessionContextListener</listener-class>
+  </listener>
+  
+  
+  
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Secure resources</web-resource-name>
@@ -58,4 +65,7 @@
   
   </login-config>
    <!-- -->
+   
+   
+   
 </web-app>

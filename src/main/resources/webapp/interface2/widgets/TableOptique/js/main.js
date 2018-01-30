@@ -75,9 +75,9 @@ $(document).ready(function() {
 		}
 	});
 
-	$('body').on('click', '#runIWBT', function(event) {
+/*	$('body').on('click', '#runIWBT', function(event) {
 		dataModel.registerTQuery();
-	});
+	});*/
 
 });
 

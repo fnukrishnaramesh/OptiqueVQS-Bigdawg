@@ -4,10 +4,13 @@
 package eu.optiquevqs.api.rest.resources;
 
 import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import org.json.JSONException;
@@ -15,10 +18,23 @@ import org.json.JSONObject;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 import eu.optiquevqs.api.rest.resources.impl.QFOntologyAccessImpl;
+import eu.optiquevqs.server.RDFoxSessionContextListener;
+import uio.ifi.ontology.toolkit.projection.controller.triplestore.RDFoxSessionManager;
 import uk.ac.ox.cs.JRDFox.JRDFoxException;
+
+
+
+
+
 
 @Path("JSON/getQFOntologyAccess")
 public class QFOntologyAccess {
+	
+	//We need to define a context to keep the sessions. For each of the method we should give the session as input.
+	@Context
+	ServletContext context;
+	
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)  
 	public String getQFOntologyAccess(
@@ -31,9 +47,17 @@ public class QFOntologyAccess {
 			@QueryParam("runType") String runType) 
 					throws IOException, JSONException, JRDFoxException, IllegalArgumentException, OWLOntologyCreationException {
 		
+		
+		//Get context
+		RDFoxSessionManager session = (RDFoxSessionManager) context
+				.getAttribute(RDFoxSessionContextListener.RDFOX_SESSION);
+		
 		JSONObject jobject=new JSONObject();
-		QFOntologyAccessImpl impl = new QFOntologyAccessImpl();
-
+		
+		
+		QFOntologyAccessImpl impl = new QFOntologyAccessImpl(session);
+		
+		
 		switch (method){
 		//Gets the list of identifiers of the available ontologies in the triple store
 		  case "getAvailableOntologies":  

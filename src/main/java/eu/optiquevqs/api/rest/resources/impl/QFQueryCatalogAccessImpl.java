@@ -1,10 +1,10 @@
 package eu.optiquevqs.api.rest.resources.impl;
 
+import org.eclipse.rdf4j.query.MalformedQueryException;
+import org.eclipse.rdf4j.query.QueryEvaluationException;
+import org.eclipse.rdf4j.query.UpdateExecutionException;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.openrdf.query.MalformedQueryException;
-import org.openrdf.query.QueryEvaluationException;
-import org.openrdf.query.UpdateExecutionException;
 
 public class QFQueryCatalogAccessImpl {
 	
@@ -45,7 +45,8 @@ public class QFQueryCatalogAccessImpl {
 	public JSONObject getQuery(
 			String queryID)
 			throws IllegalArgumentException, JSONException, MalformedQueryException, QueryEvaluationException {
-		return ReadJsonFile.readFile("getQuery.json");
+		//return ReadJsonFile.readFile("getQuery.json");
+		return new JSONObject();
 	}
 	
 	public boolean updateQuery(

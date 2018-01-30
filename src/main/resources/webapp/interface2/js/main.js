@@ -36,13 +36,7 @@ function confirm(mss, bck) {
 
 function callWidget(dt) {
 	$("#popupWidget").popup("open");
-	// Fix here later!
-	if (dt.type == "geoLocation")
-		$('#widget').attr('src', 'http://folk.uio.no/martige/what/20140813/dummy/widgets/geoLocation/index.html');
-	else if (dt.type == "Qconfig")
-		$('#widget').attr('src', 'widgets/' + dt.type + '/index.html');
-	else
-		$('#widget').attr('src', 'widgets/' + dt.type + '/index.html');
+	$('#widget').attr('src', 'widgets/' + dt.type + '/index.html');
 	Channel.ClearMessage();
 	Channel.message = dt;
 	//later:widget notifies when it is loaded

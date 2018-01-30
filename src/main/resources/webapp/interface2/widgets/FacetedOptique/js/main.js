@@ -452,9 +452,6 @@ function formField(fctId, params) {
 	var aId = assignAttrId(fctId, params.id);
 	var str = "";
 
-	if (params.ext == "temporal")
-		str = 'attrAnnt="stream" data-theme="b"';
-
 	// data-role="fieldcontain"
 	field += '<li id="li_' + aId + '" attrNs="' + params.ns + '" attrName="' + params.name + '" attrAId= "' + aId + '" attrId="' + params.id + '" attrType="' + params.type + '" attrLabel="' + params.label + '" ' + str + '>';
 
@@ -483,19 +480,11 @@ function formField(fctId, params) {
 	} else if (params.inputType == 'select') {
 		field += '<label for="' + aId + '">';
 
-		// bind widgets
-		/*if ( typeof params.ext !== 'undefined') {
-			// experiment stuff
-			if (exp == "false")
-				field += '<a href="#" data-role="button" name="location" data-icon="geoLocation" data-iconpos="notext" data-theme="c" data-inline="true" class="' + params.ext + '" style="float:right;" id="geo_' + aId + '">Map</a>';
-		}*/
-
 		field += '<a href="#" data-role="button" data-icon="add" data-iconpos="notext" data-theme="c" data-inline="true" class="add" id="btn_' + aId + '">Output</a>' + params.label + '</label>';
 		field += '<select name="select-one" id="' + aId + '">';
 		field += '<option value="Any">Any</option>';
 		for (var i = 0; i < Object.keys(params.option).length; i++)
 			field += '<option value="' + params.option[i] + '">' + params.option[i] + '</option>';
-		//Object.keys(params.option)[i]
 		field += '</select>';
 	} else if (params.inputType == 'date-range') {
 		field += '<label for="' + aId + '_1" >';
@@ -603,23 +592,7 @@ function deliverEvent(source, type) {
 				Channel.message.content.attr.ext[$(this).attr('key')] = $(this).attr('value');
 			});
 		}
-		/* If previously entered when temporal widget is called initialize with data
-		 * If previously entered focus map widget to location
-		 * Allow removal
-		 * enable readdition from the graph call
-		 * what happens if I don't enter any constraint but simply temporal
-		 * what happens if I first enter constraint than temporal
-		 */
-
-	}/* else if (type == 'geoLocation') {
-		Channel.message.content.nodeId = concept.nodeId;
-		Channel.message.content.conceptId = concept.conceptId;
-		Channel.message.content.conceptName = concept.conceptName;
-		Channel.message.content.conceptLabel = concept.conceptLabel;
-		Channel.message.content.conceptNs = concept.conceptNs;
-	}*/
-	// else if (type == 'temporal') {
-	//	console.log(Channel.message);
-	//}
+		
+	}
 	Channel.Send('parent');
 }

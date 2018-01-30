@@ -172,7 +172,8 @@ public class JettyStart {
 
 		webapp.setParentLoaderPriority(true);
   		webapp.setVirtualHosts(secureHosts);
-  		          	  		
+  		
+  		
 		// Wire up context for unsecure handling to only
         // the named 'unsecured' connector
         ContextHandler redirectHandler = new ContextHandler();

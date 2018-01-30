@@ -162,10 +162,7 @@ $(document).ready(function() {
 				// experiment stuff
 				if (exp == "true") {
 					var type;
-					if (isStream() >= 0)
-						type = "starql";
-					else
-						type = "sparql";
+					type = "sparql";
 					y = new Date();
 					var time = (y.getTime() - x.getTime()) / 1000;
 					v = v + 1;
@@ -194,6 +191,7 @@ $(document).ready(function() {
 		} else if (sameNode && this.id != 0) {
 			if (nodeSame == '') {
 				nodeSame = this.id;
+				
 				// TODO: change color here
 			} else {
 				tree.addSame(nodeSame, this.id);
@@ -435,18 +433,18 @@ function isStream() {
 //save as draft
 function saveDraft() {
 	//if not saved yet
-	//if ( typeof query.id === "undefined")
-	//	dataModel.saveQuery(tree.getAttr(0, "label"), tree.getAttr(0, "desc"), tree.getSparql(tree.toSparqlObj()), JSON.stringify(tree.getQueryGraph()), "draft");
+	if ( typeof query.id === "undefined")
+		dataModel.saveQuery(tree.getAttr(0, "label"), tree.getAttr(0, "desc"), tree.getSparql(tree.toSparqlObj()), JSON.stringify(tree.getQueryGraph()), "draft");
 	//if a saved draft
-	//else if (query.status == "draft")
-	//	dataModel.updateQuery(query.id, tree.getAttr(0, "label"), tree.getAttr(0, "desc"), tree.getSparql(tree.toSparqlObj()), JSON.stringify(tree.getQueryGraph()), "draft");
+	else if (query.status == "draft")
+		dataModel.updateQuery(query.id, tree.getAttr(0, "label"), tree.getAttr(0, "desc"), tree.getSparql(tree.toSparqlObj()), JSON.stringify(tree.getQueryGraph()), "draft");
 	//save draft for a saved query
-	//else if (query.status == "final")
+	else if (query.status == "final")
 	//console.log(query.status);
-	//	dataModel.saveQuery(tree.getAttr(0, "label"), tree.getAttr(0, "desc"), tree.getSparql(tree.toSparqlObj()), JSON.stringify(tree.getQueryGraph()), "finalDraft");
+		dataModel.saveQuery(tree.getAttr(0, "label"), tree.getAttr(0, "desc"), tree.getSparql(tree.toSparqlObj()), JSON.stringify(tree.getQueryGraph()), "finalDraft");
 	//update draft of a saved query
-	//else if (query.status == "finalDraft")
-	//	dataModel.updateQuery(query.dId, tree.getAttr(0, "label"), tree.getAttr(0, "desc"), tree.getSparql(tree.toSparqlObj()), JSON.stringify(tree.getQueryGraph()), "finalDraft");
+	else if (query.status == "finalDraft")
+		dataModel.updateQuery(query.dId, tree.getAttr(0, "label"), tree.getAttr(0, "desc"), tree.getSparql(tree.toSparqlObj()), JSON.stringify(tree.getQueryGraph()), "finalDraft");
 }
 
 //inform change

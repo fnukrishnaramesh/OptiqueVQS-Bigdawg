@@ -29,10 +29,6 @@ function addlistener() {
 			tree.updateSequence(data.content, 'stack');
 		} else if(data.type == "aggregate") {
 			tree.updateAggregate(data.content, 'stack');
-		} else if(data.type == "stream_op"){
-			tree.updateStreamOp(data.content, 'stack');
-		} else if(data.type == "temporal"){
-			tree.updateTimeWindow(data.content);
 		} else if(data.type == "Qconfig"){
 			tree.updateQConfig(data.content);
 		}

@@ -7,9 +7,10 @@ import java.net.URISyntaxException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.openrdf.query.MalformedQueryException;
-import org.openrdf.query.QueryEvaluationException;
-import org.openrdf.query.UpdateExecutionException;
+import org.eclipse.rdf4j.*;
+import org.eclipse.rdf4j.query.MalformedQueryException;
+import org.eclipse.rdf4j.query.QueryEvaluationException;
+import org.eclipse.rdf4j.query.UpdateExecutionException;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 import uio.ifi.ontology.toolkit.projection.view.OptiqueVQSAPI;
@@ -37,8 +38,8 @@ public class QFOntologyAccessImpl {
     }
 	
 	public JSONObject getAvailableOntologies() throws FileNotFoundException, JRDFoxException{
-		return vqs.getOntologies();
-	//	return ReadJsonFile.readFile("getAvailableOntologies.json");
+		//return vqs.getOntologies();
+	return ReadJsonFile.readFile("getAvailableOntologies.json");
 
 	}
 	
