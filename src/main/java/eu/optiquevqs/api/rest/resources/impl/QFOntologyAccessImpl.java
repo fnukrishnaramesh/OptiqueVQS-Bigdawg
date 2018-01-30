@@ -13,18 +13,27 @@ import org.eclipse.rdf4j.query.QueryEvaluationException;
 import org.eclipse.rdf4j.query.UpdateExecutionException;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
+import uio.ifi.ontology.toolkit.projection.controller.triplestore.RDFoxSessionManager;
 import uio.ifi.ontology.toolkit.projection.view.OptiqueVQSAPI;
 import uk.ac.ox.cs.JRDFox.JRDFoxException;
 
 public class QFOntologyAccessImpl {
+	
 	private String defaultURI;
-	OptiqueVQSAPI vqs = new OptiqueVQSAPI();
+	OptiqueVQSAPI vqs;
+	
+	public QFOntologyAccessImpl(RDFoxSessionManager session){
+		vqs = new OptiqueVQSAPI(session);
+	}
 
 	public void loadOntology(String ontologyURIStr) throws IllegalArgumentException{		
+		
+		
 		defaultURI = ontologyURIStr;
 		vqs.loadOntologySession(ontologyURIStr);
 	}
-		
+	
+	//TODO
 	public void loadOntologyVersion(String ontologyURIStr, String ontologyURIVersionStr)
 			throws IllegalArgumentException, OWLOntologyCreationException,
 			UnsupportedEncodingException, JSONException {
@@ -34,12 +43,14 @@ public class QFOntologyAccessImpl {
     public void reLoadOntology(String ontologyURIStr) throws IllegalArgumentException,OWLOntologyCreationException, UnsupportedEncodingException, JSONException{
     }
     
+    
+    //TODO
     public void setOntology(String ontologyIRI) throws IllegalArgumentException, UnsupportedEncodingException, JSONException, OWLOntologyCreationException{
     }
 	
 	public JSONObject getAvailableOntologies() throws FileNotFoundException, JRDFoxException{
-		//return vqs.getOntologies();
-	return ReadJsonFile.readFile("getAvailableOntologies.json");
+		//return vqs.getOntologies(); //return loaded ontologies
+		return ReadJsonFile.readFile("getAvailableOntologies.json");
 
 	}
 	
@@ -57,23 +68,30 @@ public class QFOntologyAccessImpl {
 	
 	public JSONObject getConceptFacets(String conceptURI) throws IllegalArgumentException,JSONException{
 		return getConceptFacets(defaultURI, conceptURI, "");
+		//return vqs.getConceptFacets(defaultURI, conceptURI);
 	}
 	
 	public JSONObject getConceptFacets(String ontologyURIStr, String conceptURI, String partialQuery) throws IllegalArgumentException,JSONException{
-		return ReadJsonFile.readFile("getConceptFacets.json");
+		//return ReadJsonFile.readFile("getConceptFacets.json");
+		return vqs.getConceptFacets(ontologyURIStr, conceptURI);
+		
 	}
 	
 	public JSONObject getNeighbourConcepts(
 			String ontologyURIStr, String conceptURI, String partialQuery) throws IllegalArgumentException,JSONException{
 		return getNeighbourConcepts(ontologyURIStr, conceptURI, partialQuery, true);
+		//return vqs.getNeighbourConcepts(ontologyURIStr, conceptURI);
 	}	
 	
 	public JSONObject getNeighbourConcepts(String conceptURI) throws IllegalArgumentException,JSONException{
 		return getNeighbourConcepts(defaultURI, conceptURI, "", true);
+		//return vqs.getNeighbourConcepts(defaultURI, conceptURI);
 	}
 	
 	private JSONObject getNeighbourConcepts(String ontologyURIStr, String conceptURI, String partialQuery, boolean includeInverses) throws IllegalArgumentException,JSONException{
-		return ReadJsonFile.readFile("getNeighbourConcepts.json");
+		//return ReadJsonFile.readFile("getNeighbourConcepts.json");
+		return vqs.getNeighbourConcepts(ontologyURIStr, conceptURI);
+		
 	}
 	
 	public JSONObject generateSPARQLQueryFromText(
@@ -90,12 +108,13 @@ public class QFOntologyAccessImpl {
 			throws IllegalArgumentException, JSONException {
 		
 		return getDirectSubclasses(defaultURI, conceptURI);
+		
 	}
 	
 	public JSONObject getDirectSubclasses(String ontologyURIStr, String conceptURI)
 			throws IllegalArgumentException, JSONException {
-		return ReadJsonFile.readFile("getDirectSubclasses.json");
-
+		//return ReadJsonFile.readFile("getDirectSubclasses.json");
+		return vqs.getDirectSubClasses(ontologyURIStr, conceptURI);
 	}
 	
 	public JSONObject getAllSubclasses(String conceptURI)
@@ -107,7 +126,7 @@ public class QFOntologyAccessImpl {
 	
 	public JSONObject getAllSubclasses(String ontologyURIStr, String conceptURI)
 			throws IllegalArgumentException, JSONException {
-		return null;
+		return vqs.getDirectSubClasses(ontologyURIStr, conceptURI);
 	}
 	
 	public JSONObject getDirectSuperclasses(String conceptURI)
@@ -129,14 +148,14 @@ public class QFOntologyAccessImpl {
 	
 	public JSONObject getAllSuperclasses(String ontologyURIStr, String conceptURI)
 			throws IllegalArgumentException, JSONException {
-		return null;
+		return vqs.getDirectSuperClasses(ontologyURIStr, conceptURI);
 	}
 	public void clearLoadedOntologies(){
-		vqs.clearOntologySession("");
+		//vqs.clearAllSessions();
 	}
 	
 	public void clearLoadedOntology(String ontologyURIStr){
-		vqs.clearOntologySession(ontologyURIStr);
+		//vqs.clearOntologySession(ontologyURIStr);
 	}
     
 }
