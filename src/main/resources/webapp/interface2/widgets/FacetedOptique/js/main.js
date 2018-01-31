@@ -240,49 +240,11 @@ function sortPage(output, constraint) {
 
 	for ( i = 0; i < output.length; i++) {
 		Facet.setOutput(output[i]);
-		/*aId = $("#ul_"+facet_id).find('li[attrId="'+output[i].id+'"]')[0].getAttribute("attrAId");
-
-		 $("#btn_" + aId).attr('data-icon', 'remove');
-		 $("#btn_" + aId).children().children().next().removeClass('ui-icon-add').addClass('ui-icon-remove');
-		 $("#btn_" + aId).removeClass('add');
-		 $("#btn_" + aId).addClass('remove');
-
-		 moveUp($("#btn_" + aId).closest('li'), 'output');*/
-	}
+			}
 
 	for ( i = 0; i < constraint.length; i++) {
 		Facet.setConstraint(constraint[i]);
-		/*aId = $("#ul_"+facet_id).find('li[attrId="'+constraint[i].id+'"]')[0].getAttribute("attrAId");
-
-		 if ($("#" + aId).attr("name") == "text") {
-		 $("#" + aId).val(constraint[i].constr);
-		 } else if (constraint[i].constrType == "greater") {
-		 $("#" + aId + "_1").val(constraint[i].constrHigh);
-		 $("#" + aId + "_1").slider("refresh");
-		 } else if (constraint[i].constrType == "lower") {
-		 $("#" + aId + "_2").val(constraint[i].constrLow);
-		 $("#" + aId + "_2").slider("refresh");
-		 } else if (constraint[i].constrType == "range") {
-		 $("#" + aId + "_1").val(constraint[i].constrHigh);
-		 $("#" + aId + "_2").val(constraint[i].constrLow);
-		 $("#" + aId + "_1").slider("refresh");
-		 $("#" + aId + "_2").slider("refresh");
-		 } else if ($("#" + aId).attr("name") == "select-one") {
-		 $('#' + aId).val(constraint[i].constr);
-		 $("#" + aId).selectmenu('refresh');
-		 } else if ($("#" + aId).attr("name") == "subclass") {
-		 var opts = constraint[i].type;
-		 var opArr = new Array();
-
-		 for (var i = 0; i < opts.length; i++) {
-		 opArr.push(opts[i].id);
-		 }
-		 $('#' + aId).val(opArr);
-		 $("#" + aId).selectmenu('refresh');
-		 }
-
-		 moveUp($("#" + aId).closest('li'), 'constraint');*/
-	}
+			}
 }
 
 //BLOCKED: Annoying
@@ -436,10 +398,6 @@ function createPage(id, title, bck, home) {
 	content += '</ul>';
 	content += '</div>';
 
-	//content += '<div data-role="footer" class="ui-bar" data-position="fixed" data-id="myfooter">';
-	//content += '<h1>Footer</h1>';
-	//content += '</div>';
-
 	content += '</div>';
 	content = $(content);
 
@@ -458,20 +416,12 @@ function formField(fctId, params) {
 	//text field
 	if (params.inputType == 'text') {
 		field += '<label for="' + aId + '" >';
-		//field += '<a href="#"><img src="http://simpleicon.com/wp-content/uploads/current-location.svg" style="position:absolute; z-index: 2;right:15px;height: 32px;width: 32px;"></img></a>';
-
-		// bind widgets
-		/*if (params.ext == 'geoLocation') {
-			field += '<a href="#" data-role="button" name="location" data-icon="geoLocation" data-iconpos="notext" data-theme="c" data-inline="true" class="' + params.ext + '" style="float:right;" id="geo_' + aId + '">Map</a>';
-		}*/
 
 		field += '<a href="#" data-role="button" data-icon="add" data-iconpos="notext" data-theme="c" data-inline="true" class="add" id="btn_' + aId + '">Output</a>' + params.label + '</label>';
 		field += '<input type="text" name="text" id="' + aId + '" value="" data-clear-btn="true"/>';
 	} else if (params.inputType == 'rangeSlider') {
 		field += '<div data-role="rangeslider">';
 		field += '<label for="' + aId + '_1' + '">';
-		//access to stream widget
-		//field += '<a href="#" data-role="button" name="stream" data-icon="temporal" data-iconpos="notext" data-theme="c" data-inline="true" class="temporal" style="float:right;" id="temp_' + aId + '">Stream</a>';
 		field += '<a href="#" data-role="button" data-icon="add" data-iconpos="notext" data-theme="c" data-inline="true" class="add" id="btn_' + aId + '">Output</a>' + params.label + '</label>';
 		field += '<label for="' + aId + '_2' + '">' + params.label + '</label>';
 		field += '<input type="range" name="rangeSlider" id="' + aId + '_1' + '" step="' + params.option.stepValue + '" min="' + params.option.minInclusive + '" max="' + params.option.maxInclusive + '" value="' + params.option.minInclusive + '">';

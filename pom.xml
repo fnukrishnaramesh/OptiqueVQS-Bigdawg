@@ -50,14 +50,14 @@
 	                </execution>
             	</executions>
         	</plugin>
-        	
+        	<!--  
         	<plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-install-plugin</artifactId>
           <version>2.4</version>
           <executions>
             <execution>
-              <id>install1</id>
+              <id>install</id>
               <phase>package</phase>
               <goals>
                 <goal>install-file</goal>
@@ -73,7 +73,7 @@
         	</executions>
         	</plugin>
         	
-        	
+        	-->
         	 
         	<!-- Make this jar executable -->
      		
@@ -280,14 +280,14 @@
 		-->
 	 	
 		
-		<!-- Ontotlogy services toolkit 
+		<!-- Ontotlogy services toolkit -->
         <dependency>
             <groupId>ontology_services_toolkit</groupId>
             <artifactId>ontology_services_toolkit</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-        -->
+        
         <dependency>
             <groupId>ontology_services_toolkit</groupId>
             <artifactId>ontology_services_toolkit</artifactId>
