@@ -46,7 +46,7 @@ function getConcepts(cId, id, reCreate) {
 
 	} else {
 		$.ajax({
-			url : this.getBaseUrl() + "/REST/JSON/getQFOntologyAccess/?method=getNeighbourConcepts&ontologyURI=" + dataModel.encodeSpecial(getURLParameter($(parent.location).attr('href'), "ontologyURI")) + "&conceptId=" + dataModel.encodeSpecial(cId) + "&partialQuery=&id=1",
+			url : this.getBaseUrl() + "/REST/JSON/getQFOntologyAccess/?method=getNeighbourConcepts&ontologyURI=" + dataModel.encodeSpecial(getURLParameter($(parent.location).attr('href'), "ontologyURI")) + "&conceptURI=" + dataModel.encodeSpecial(cId) + "&partialQuery=&id=1",
 			dataType : 'json',
 			context : document.body
 		}).done(function(data) {

@@ -36,7 +36,7 @@ function getURLParameter(url, name) {
 //get concepts and relatipnships pairs
 function getFields(dt, reCreate) {
 	$.ajax({
-		url : this.getBaseUrl() + "/REST/JSON/getQFOntologyAccess/?method=getConceptFacets&ontologyURI=" + dataModel.encodeSpecial(getURLParameter($(parent.location).attr('href'), "ontologyURI")) + "&conceptId=" + dataModel.encodeSpecial(dt.conceptId) + "&id=1",
+		url : this.getBaseUrl() + "/REST/JSON/getQFOntologyAccess/?method=getConceptFacets&ontologyURI=" + dataModel.encodeSpecial(getURLParameter($(parent.location).attr('href'), "ontologyURI")) + "&conceptURI=" + dataModel.encodeSpecial(dt.conceptId) + "&id=1",
 		dataType : 'json',
 		context : document.body
 	}).done(function(data) {
@@ -47,7 +47,7 @@ function getFields(dt, reCreate) {
 //add subclass information
 function getSubclasses(dt, response, reCreate) {
 	$.ajax({
-		url : this.getBaseUrl() + "/REST/JSON/getQFOntologyAccess/?method=getDirectSubclasses&ontologyURI=" + dataModel.encodeSpecial(getURLParameter($(parent.location).attr('href'), "ontologyURI")) + "&conceptId=" + dataModel.encodeSpecial(dt.conceptId) + "&id=1",
+		url : this.getBaseUrl() + "/REST/JSON/getQFOntologyAccess/?method=getDirectSubclasses&ontologyURI=" + dataModel.encodeSpecial(getURLParameter($(parent.location).attr('href'), "ontologyURI")) + "&conceptURI=" + dataModel.encodeSpecial(dt.conceptId) + "&id=1",
 		dataType : 'json',
 		context : document.body
 	}).done(function(data) {
