@@ -49,10 +49,10 @@ public class RDFoxSessionContextListener  implements ServletContextListener {
 		
 		System.out.print("DESTROYING CONTEXT FOR SESSIONS...");
 		
-		session.clearAllOntologySessions();
-		
 		int n_sessions = session.getLoadedOntologies().size();
 		
+		session.clearAllOntologySessions();	
+				
 		System.out.println("DONE. Removed " + n_sessions + " sessions.");
 		
 	}

@@ -1,1 +1,12 @@
-{"result":["file:E:/Uio/example.owl", "file:/home/ernesto/workspace_papers/Optique/WP09/ontology/well-ontology/2016-05-25/well-ontology-20160525.ttl"],"id":"1","jsonrpc":"2.0"}
+{"result":[
+	"https://gitlab.com/ernesto.jimenez.ruiz/ontology-services-toolkit/raw/master/src/test/resources/ontologies/testVQS01_basic.owl",
+	"https://gitlab.com/ernesto.jimenez.ruiz/ontology-services-toolkit/raw/master/src/test/resources/ontologies/testVQS02_top-bottom-propagation.owl", 
+	"https://gitlab.com/ernesto.jimenez.ruiz/ontology-services-toolkit/raw/master/src/test/resources/ontologies/testVQS03_bottom-up-propagation.owl",
+	"https://gitlab.com/ernesto.jimenez.ruiz/ontology-services-toolkit/raw/master/src/test/resources/ontologies/testVQS04_top-down-propagation-ranges.owl",
+	"https://gitlab.com/ernesto.jimenez.ruiz/ontology-services-toolkit/raw/master/src/test/resources/ontologies/testVQS05_propagation-domain-ranges.owl",
+	"https://gitlab.com/ernesto.jimenez.ruiz/ontology-services-toolkit/raw/master/src/test/resources/ontologies/testVQS06_datatypes.owl",
+	"https://gitlab.com/ernesto.jimenez.ruiz/ontology-services-toolkit/raw/master/src/test/resources/ontologies/testVQS07_sliders.owl",
+	"https://gitlab.com/ernesto.jimenez.ruiz/ontology-services-toolkit/raw/master/src/test/resources/ontologies/testVQS08_enumerations.owl",
+	"https://gitlab.com/ernesto.jimenez.ruiz/ontology-services-toolkit/raw/master/src/test/resources/ontologies/testVQS09_optique_annotations.owl",
+	"https://gitlab.com/ernesto.jimenez.ruiz/ontology-services-toolkit/raw/master/src/test/resources/ontologies/NPD_extended_vqs.owl"
+	],"id":"1","jsonrpc":"2.0"}

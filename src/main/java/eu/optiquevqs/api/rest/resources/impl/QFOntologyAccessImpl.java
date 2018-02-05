@@ -15,7 +15,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 import uio.ifi.ontology.toolkit.projection.controller.triplestore.RDFoxSessionManager;
 import uio.ifi.ontology.toolkit.projection.view.OptiqueVQSAPI;
-import uk.ac.ox.cs.JRDFox.JRDFoxException;
+//import uk.ac.ox.cs.JRDFox.JRDFoxException;
 
 public class QFOntologyAccessImpl {
 	
@@ -48,13 +48,13 @@ public class QFOntologyAccessImpl {
     public void setOntology(String ontologyIRI) throws IllegalArgumentException, UnsupportedEncodingException, JSONException, OWLOntologyCreationException{
     }
 	
-	public JSONObject getAvailableOntologies() throws FileNotFoundException, JRDFoxException{
+	public JSONObject getAvailableOntologies() throws FileNotFoundException {
 		//return vqs.getOntologies(); //return loaded ontologies
 		return ReadJsonFile.readFile("getAvailableOntologies.json");
 
 	}
 	
-	public JSONObject getLoadedOntologies() throws FileNotFoundException, JRDFoxException{
+	public JSONObject getLoadedOntologies() throws FileNotFoundException {
 		return null;
 	}
 	
