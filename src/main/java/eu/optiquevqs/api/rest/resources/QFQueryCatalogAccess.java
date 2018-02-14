@@ -11,7 +11,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.json.JSONObject;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 import eu.optiquevqs.api.rest.resources.impl.QFQueryCatalogAccessImpl;
 
@@ -22,7 +21,7 @@ public class QFQueryCatalogAccess {
 	@Produces(MediaType.APPLICATION_JSON)  
 	public String getQFQueryCatalogAccess(
 			@QueryParam("method") String method,
-			@QueryParam("qId") String queryID) throws OWLOntologyCreationException, FileNotFoundException {
+			@QueryParam("qId") String queryID) throws FileNotFoundException {
 				
 		JSONObject jobject=new JSONObject(); 
 		QFQueryCatalogAccessImpl impl=new QFQueryCatalogAccessImpl();	
@@ -71,7 +70,7 @@ public class QFQueryCatalogAccess {
 			@QueryParam("jsonquery") String jsonquery,
 			@QueryParam("status") String status,
 			@QueryParam("type") String type,
-			@QueryParam("qId") String queryID) throws OWLOntologyCreationException, FileNotFoundException {
+			@QueryParam("qId") String queryID) throws FileNotFoundException {
 		
 		QFQueryCatalogAccessImpl impl=new QFQueryCatalogAccessImpl();
 		switch (method){
