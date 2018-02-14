@@ -282,8 +282,8 @@
 		
 		<!-- Ontotlogy services toolkit -->
         <dependency>
-            <groupId>ontology_services_toolkit</groupId>
-            <artifactId>ontology_services_toolkit</artifactId>
+            <groupId>ontology-services-toolkit</groupId>
+            <artifactId>ontology-services-toolkit</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
