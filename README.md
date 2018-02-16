@@ -6,9 +6,11 @@ Currently, the ontology is classified using [HermiT](http://www.cs.ox.ac.uk/isg/
 The OptiqueVQS interface is designed as a widget based user-interface mashup (i.e., UI mashup), which aggregates a set of applications in a common graphical space, in the form of widgets, and orchestrates them for achieving common goals. Apart from flexibility and extensibility, such a modular approach provides us with the ability to combine multiple representation and interaction paradigms, and distribute functionality to appropriate widgets.
 
 
-## Using OptiqueVQS
+## Using OptiqueVQS via the Optique platform
 
 Access to the original OptiqueVQS can be done via the [Optique platform](http://optique-project.eu/northwind-tutorial/). Requires installation of the Optique platform, but it comes with a comprehensive tutorial, and an example OBDA scenario including artefacts such as ontology, data set, and mappings for online testing and download.
+
+## Using stand-alone OptiqueVQS 
 
 Alternatively (recommended) an stand-alone version (platform dependent) is available. Currently OptiqueVQS runs as a jetty server:
 
@@ -24,17 +26,17 @@ or with optional ports:
 
 
 The server is started and the application is running. 
-Browse the page using the URL, The (default) HTTP URL
-> localhost:8085 
+Browse the page using the URL, The (default) HTTP URL [http://localhost:8085](http://localhost:8085)
 
-The (default) HTTPS URL
-> localhost:8443
+The (default) HTTPS URL: [https://localhost:8443](https://localhost:8443)
 
 
 OptiqueVQS makes use of RDFox which is platform dependent. If the above pre-compiled versions do not work it is recommended to follow the steps below.
 
 
-The latest source codes can also be accessed from gitlab. 
+## Compiling OptiqueVQS
+
+The latest source codes can be accessed from gitlab. 
 
 1. **Basic requirements:** git, maven and java 1.8
 2. **Clone repository that deals with the ontology projection:** [https://gitlab.com/ernesto.jimenez.ruiz/ontology-services-toolkit](https://gitlab.com/ernesto.jimenez.ruiz/ontology-services-toolkit)
@@ -58,7 +60,9 @@ The latest source codes can also be accessed from gitlab.
 > mvn exec:java@VQSStop 
 
 8. **Run OptiqueVQS with the compiled jar file:** the jar file *OptiqueVQS.jar* is generated in the */target* folder together with a folder with dependencies (*dependency-jars*).
+
 > java -jar OptiqueVQS.jar
 or
+
 > java -jar OptiqueVQS.jar 5080 5443 5090
 
