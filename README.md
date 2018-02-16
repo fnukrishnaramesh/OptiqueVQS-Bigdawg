@@ -51,9 +51,12 @@ The latest source codes can also be accessed from gitlab.
 7. **Run OptiqueVQS with maven:**
 	1. Start the web application
 > mvn exec:java@VQSStart
+
 > mvn exec:java@VQSStart -Dexec.args="5080 5443 5090" (indicating the input ports)
+	
 	2. Stop the server by running the following command in another terminal
 > mvn exec:java@VQSStop 
+
 7. **Run OptiqueVQS with the compiled jar file:** the jar file *OptiqueVQS.jar* is generated in the */target* folder together with a folder with dependencies (*dependency-jars*).
 > java -jar OptiqueVQS.jar
 or
