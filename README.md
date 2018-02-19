@@ -18,19 +18,32 @@ Alternatively (recommended) an stand-alone version (platform dependent) is avail
 
 - Linux: [http://sws.ifi.uio.no/project/optique-vqs/OptiqueVQS_linux.zip](http://sws.ifi.uio.no/project/optique-vqs/OptiqueVQS_linux.zip)
 - Windows: TBA 
-- Mac OS: TBA
+- Mac OS: [http://sws.ifi.uio.no/project/optique-vqs/OptiqueVQS_mac.zip](http://sws.ifi.uio.no/project/optique-vqs/OptiqueVQS_mac.zip)
 
 Unzip the file and run:
 > java -jar OptiqueVQS.jar
 
-or with optional ports:
+With optional ports:
 > java -jar OptiqueVQS.jar 8085 8443 8090
+
+For large ontologies (recommended):
+> java -Xms500M -Xmx4G -DentityExpansionLimit=100000000 -jar OptiqueVQS.jar 
 
 
 The server is started and the application is running. Browse the page using the (default) HTTP URL [http://localhost:8085](http://localhost:8085) or the (default) HTTPS URL: [https://localhost:8443](https://localhost:8443)
 
 
-OptiqueVQS makes use of RDFox which is platform dependent. If the above pre-compiled versions do not work it is recommended to follow the steps below.
+OptiqueVQS makes use of RDFox which is platform dependent. If the above pre-compiled versions do not work it is recommended to compile OptiqueVQS following the steps [below](#compiling-optiquevqs).
+
+
+## Querying a SPARQL Endpoint
+
+OptiqueVQS can load any OWL ontology and query any given SPARQL Endpoint. The SPARQL Endpoint is configured once the OptiqueVQS interface has been loaded (see Q-Config button on the right side).
+
+For example, OptiqueVQS could load the [dbpedia ontology (T-Box)](http://wiki.dbpedia.org/services-resources/ontology) and connect to the [dbpedia SPARQL Endpoint](http://dbpedia.org/sparql). 
+
+Alternatively, OptiqueVQS can also be used in an OBDA solution if, for example [-ontop-](http://ontop.inf.unibz.it/) (a query rewriting system for OBDA) is set up as an [SPARQL Endpoint](https://github.com/ontop/ontop/wiki/ObdalibSPARQLendpoint).
+ 
 
 
 ## Compiling OptiqueVQS
