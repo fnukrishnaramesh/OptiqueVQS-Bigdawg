@@ -17,7 +17,7 @@ Access to the original OptiqueVQS can be done via the [Optique platform](http://
 Alternatively (recommended) an stand-alone version (platform dependent) is available. Currently OptiqueVQS runs as a jetty server:
 
 - Linux: [http://sws.ifi.uio.no/project/optique-vqs/OptiqueVQS_linux.zip](http://sws.ifi.uio.no/project/optique-vqs/OptiqueVQS_linux.zip)
-- Windows: TBA 
+- Windows: [http://sws.ifi.uio.no/project/optique-vqs/OptiqueVQS_windows.zip](http://sws.ifi.uio.no/project/optique-vqs/OptiqueVQS_windows.zip)
 - Mac OS: [http://sws.ifi.uio.no/project/optique-vqs/OptiqueVQS_mac.zip](http://sws.ifi.uio.no/project/optique-vqs/OptiqueVQS_mac.zip)
 
 Unzip the file and run:
