@@ -19,7 +19,7 @@ $(document).ready(function() {
 			}
 			$("#ontology").val('none');
 			$("#ontology").selectmenu('refresh');
-			$.mobile.hidePageLoadingMsg();
+			$.mobile.loading("hide");
 			$("#content").show();
 
 		});

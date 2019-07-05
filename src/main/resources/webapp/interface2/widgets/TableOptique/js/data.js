@@ -4,6 +4,12 @@ function DataModel() {
 
 function submitQuery(dt) {
 	query = dt.content.query;
+	var sparqlendpoint = dt.content.sparqlendpoint
+
+	if(sparqlendpoint == ''){
+		alert("Set a SPARQL endpoint in the menu Q-Config.");
+		return;
+	}
 
 	if (dt.content.qtype == "plain") {
 		if (dt.content.example == "yes") {
@@ -16,7 +22,7 @@ function submitQuery(dt) {
 				html : ""
 			});
 			
-			var url = getBaseUrl() + "/REST/JSON/sparql?query=" + encodeURIComponent(dt.content.query.replace(/ LIMIT [0-9]+$/, "") + " LIMIT 100") + "&endpoint=" + dt.content.sparqlendpoint;
+			var url = getBaseUrl() + "/REST/JSON/sparql?query=" + encodeURIComponent(dt.content.query.replace(/ LIMIT [0-9]+$/, "") + " LIMIT 100") + "&endpoint=" + encodeURIComponent(dt.content.sparqlendpoint);
 			//extract repository paramater and forward it to iwb
 			var repository = getRepository();
 			/*if (repository != "RDF") {
@@ -40,7 +46,8 @@ function submitQuery(dt) {
 					error : function(textStatus, errorThrown) {
 						$.mobile.loading("hide");
 						$.mobile.loading('show', {
-							text : 'Error!',
+							//text : 'Error!',
+							text: "Error. Status: " + textStatus + ". Error thrown: " + errorThrown, 
 							textVisible : true,
 							theme : 'a',
 							textonly : true,
@@ -60,9 +67,12 @@ function submitQuery(dt) {
 //find the base url
 function getBaseUrl() {
 	var base;
-
-	if (getURLParameter($(parent.location).attr('href'), "base") != null) {
-		base = getURLParameter($(parent.location).attr('href'), "base");
+	var href = $(parent.location).attr('href');
+	if (getURLParameter(href, "base") != null) {
+		base = getURLParameter(href, "base");
+		// TODO: Temp workaround. The source of the wrong #-sign should be found and removed
+		if(base.charAt(base.length-1) == '#')
+			base = base.substring(0,base.length-1);
 	} else {
 
 		if (window.location.protocol == 'http:' || window.location.protocol == 'https:')
@@ -81,7 +91,9 @@ function getRepository() {
 
 //extract url parameters
 function getURLParameter(url, name) {
-	return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];
+	var pat = name + '=' + '(.+?)(&|$)';
+	var match = RegExp(pat).exec(url);
+	return (match||[,null])[1];
 }
 
 //encode " to ' and escape

@@ -57,23 +57,22 @@ $(document).ready(function() {
 	$('body').on('click', '.resource', function(event) {
 		var repository = getRepository();
 		//redirect
-		var url = getBaseUrl() + "/resource/?uri=" + encodeURIComponent($(this).attr("rs")) + "&repository=" + repository;
+		//var url = getBaseUrl() + "/resource/?uri=" + encodeURIComponent($(this).attr("rs")) + "&repository=" + repository;
+		// This works on rdf4j with ontop, not sure if its a generally good idea, though
+		var query = "PREFIX ns1: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n SELECT * WHERE { \n "
+		query += "?c1 a ?Class. \n FILTER(?c1 = " + $(this).attr("rs").replace("/","%2F") + "). }";
+		var url = $(this).attr("endpoint") + '?query=' + encodeURIComponent(query); 
 		window.open(url, '_blank');
 	});
 
-	// run query
+	// previous javascript way of running query
+	/*
 	$('body').on('click', '#runIWB', function(event) {
-		//extract repository paramater and forward it to iwb
-		var repository = getRepository();
-		//redirect
-		if (repository != "RDF") {
-			var url = getBaseUrl() + "/search/?q=" + encodeURIComponent(query) + "&infer=false&queryLanguage=SPARQL&queryTarget=" + repository + "&repository=" + repository;
-			window.open(url, '_blank');
-		} else {
-			var url = getBaseUrl() + "/search/?q=" + encodeURIComponent(query) + "&infer=false&queryLanguage=SPARQL&queryTarget=" + repository;
-			window.open(url, '_blank');
-		}
+		var url  = $(this).attr("endpoint") + "/\?query=" + encodeURIComponent($(this).attr("query"));
+		window.open(url, '_blank');
+		
 	});
+	 */
 
 /*	$('body').on('click', '#runIWBT', function(event) {
 		dataModel.registerTQuery();
@@ -173,11 +172,16 @@ function sortTHeaders(st) {
 
 }
 
+// Reads JSON formatted sparql query result and creates html result table
+// The JSON is constructed in eu.optiquevqs.api.rest.resources.SparqlEndpoint 
 function fillTable(data, dt) {
 	var content;
 	var vr = dt.content;
 	$("#resultPage").empty();
 
+	var fullQueryURL  = dt.content.sparqlendpoint + "?query=" + encodeURIComponent(dt.content.query);
+	
+	
 	//prepare the page
 	content = '<div data-role="header" data-id="tableHeader" data-position="fixed" data-tap-toggle="false">';
 	content += '<h1>Example Results</h1>';
@@ -186,7 +190,7 @@ function fillTable(data, dt) {
 
 	//prepare the table
 	content += '<div data-role="content" id="contentResult" style="min-height: 300px;">';
-	content += '<a href="#" id="runIWB" data-role="button" data-inline="true" data-mini="true" data-theme="d">Full result set</a>';
+	content += '<a href="' + fullQueryURL + '" target="_blank" id="runIWB"  data-role="button" data-inline="true" data-mini="true" data-theme="d">Full result set</a>';
 	content += '<table data-role="table" id="tableResult" data-mode="columntoggle" class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="d" data-column-btn-text="Columns to display..." data-column-popup-theme="d">';
 	content += '<thead>';
 	content += '<tr id="headResult" class="ui-bar-d">';
@@ -246,11 +250,13 @@ function fillTable(data, dt) {
 			var indx = 0;
 			for (var y in data.head.vars) {
 				var key = data.head.vars[y];
-				if ( typeof data.results.bindings[i][key] !== 'undefined') {
+				var binding = data.results.bindings[i][key];
+				if ( typeof binding !== 'undefined') {
+					var val = binding.value;
 					if (vr.output[indx].typ != "concept" || vr.output[indx].id == vr.aggregate.vr)
-						content += '<th>' + data.results.bindings[i][key].value + '</th>';
+						content += '<th>' + val + '</th>';
 					else
-						content += '<th><a href="#" rs="' + data.results.bindings[i][key].value + '" class="resource">Go to resource</a></th>';
+						content += '<th><a href="#" rs="' + val + '" class="resource" endpoint="' + dt.content.sparqlendpoint + '">' + val + '</a></th>';
 				} else {
 					content += '<th> - </th>';
 				}

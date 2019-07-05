@@ -80,7 +80,7 @@ function createPage(id, title, bck, home) {
 	content += '</div>';
 	content += '<div data-role="content">';
 	content += '<div id="search-wrapper">';
-	content += '<ul data-role="listview" id="ul_' + id + '" data-inset="true" data-theme="c" data-divider-theme="c" data-filter="true" data-filter-placeholder="Search...">';
+	content += '<ul data-role="listview" id="ul_' + id + '" data-inset="true" data-theme="a" data-divider-theme="a" data-filter="true" data-filter-placeholder="Search...">';
 	content += '</ul>';
 	content += '</div>';
 	content += '</div>';
