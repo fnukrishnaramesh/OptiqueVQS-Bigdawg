@@ -394,7 +394,7 @@ function createPage(id, title, bck, home) {
 		content += '<a href="#" data-icon="home" class="ui-btn-right home-btn">Home</a>';
 	content += '</div>';
 	content += '<div data-role="content">';
-	content += '<ul data-role="listview" id="ul_' + id + '" data-inset="true" data-theme="c" data-filter="true" data-filter-placeholder="Search..." data-mini="true">';
+	content += '<ul data-role="listview" id="ul_' + id + '" data-inset="true" data-theme="a" data-filter="true" data-filter-placeholder="Search..." data-mini="true">';
 	content += '</ul>';
 	content += '</div>';
 
@@ -417,12 +417,12 @@ function formField(fctId, params) {
 	if (params.inputType == 'text') {
 		field += '<label for="' + aId + '" >';
 
-		field += '<a href="#" data-role="button" data-icon="add" data-iconpos="notext" data-theme="c" data-inline="true" class="add" id="btn_' + aId + '">Output</a>' + params.label + '</label>';
+		field += '<a href="#" data-role="button" data-icon="add" data-iconpos="notext" data-theme="a" data-inline="true" class="add" id="btn_' + aId + '">Output</a>' + params.label + '</label>';
 		field += '<input type="text" name="text" id="' + aId + '" value="" data-clear-btn="true"/>';
 	} else if (params.inputType == 'rangeSlider') {
 		field += '<div data-role="rangeslider">';
 		field += '<label for="' + aId + '_1' + '">';
-		field += '<a href="#" data-role="button" data-icon="add" data-iconpos="notext" data-theme="c" data-inline="true" class="add" id="btn_' + aId + '">Output</a>' + params.label + '</label>';
+		field += '<a href="#" data-role="button" data-icon="add" data-iconpos="notext" data-theme="a" data-inline="true" class="add" id="btn_' + aId + '">Output</a>' + params.label + '</label>';
 		field += '<label for="' + aId + '_2' + '">' + params.label + '</label>';
 		field += '<input type="range" name="rangeSlider" id="' + aId + '_1' + '" step="' + params.option.stepValue + '" min="' + params.option.minInclusive + '" max="' + params.option.maxInclusive + '" value="' + params.option.minInclusive + '">';
 		field += '<input type="range" name="rangeSlider" id="' + aId + '_2' + '" step="' + params.option.stepValue + '" min="' + params.option.minInclusive + '" max="' + params.option.maxInclusive + '" value="' + params.option.maxInclusive + '">';
@@ -430,7 +430,7 @@ function formField(fctId, params) {
 	} else if (params.inputType == 'select') {
 		field += '<label for="' + aId + '">';
 
-		field += '<a href="#" data-role="button" data-icon="add" data-iconpos="notext" data-theme="c" data-inline="true" class="add" id="btn_' + aId + '">Output</a>' + params.label + '</label>';
+		field += '<a href="#" data-role="button" data-icon="add" data-iconpos="notext" data-theme="a" data-inline="true" class="add" id="btn_' + aId + '">Output</a>' + params.label + '</label>';
 		field += '<select name="select-one" id="' + aId + '">';
 		field += '<option value="Any">Any</option>';
 		for (var i = 0; i < Object.keys(params.option).length; i++)
@@ -438,12 +438,12 @@ function formField(fctId, params) {
 		field += '</select>';
 	} else if (params.inputType == 'date-range') {
 		field += '<label for="' + aId + '_1" >';
-		field += '<a href="#" data-role="button" data-icon="add" data-iconpos="notext" data-theme="c" data-inline="true" class="add" id="btn_' + aId + '">Output</a>' + params.label + '</label>';
+		field += '<a href="#" data-role="button" data-icon="add" data-iconpos="notext" data-theme="a" data-inline="true" class="add" id="btn_' + aId + '">Output</a>' + params.label + '</label>';
 		field += '<input type="datetime-local" name="date-range" id="' + aId + '_1" value="">';
 		field += '<input type="datetime-local" name="date-range" id="' + aId + '_2" value="">';
 	} else if (params.inputType == 'subclass') {
 		field += '<label for="' + aId + '" class="select">';
-		field += '<a href="#" data-role="button" data-icon="add" data-iconpos="notext" data-theme="c" data-inline="true" class="add" id="btn_' + aId + '">Output</a>' + params.label + '</label>';
+		field += '<a href="#" data-role="button" data-icon="add" data-iconpos="notext" data-theme="a" data-inline="true" class="add" id="btn_' + aId + '">Output</a>' + params.label + '</label>';
 		field += '<select name="subclass" id="' + aId + '" multiple="multiple" data-native-menu="false" data-icon="grid" data-iconpos="left">'
 		field += '<option>Please select</option>';
 		for (var i = 0; i < params.options.length; i++)

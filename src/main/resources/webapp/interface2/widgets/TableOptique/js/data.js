@@ -47,7 +47,7 @@ function submitQuery(dt) {
 						$.mobile.loading("hide");
 						$.mobile.loading('show', {
 							//text : 'Error!',
-							text: "Error. Status: " + textStatus + ". Error thrown: " + errorThrown, 
+							text: "Error. Status: " + textStatus.responseText + ". Error thrown: " + errorThrown, 
 							textVisible : true,
 							theme : 'a',
 							textonly : true,
