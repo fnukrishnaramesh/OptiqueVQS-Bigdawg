@@ -2,6 +2,7 @@ package eu.optiquevqs.api.rest.resources.impl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 
@@ -32,7 +33,11 @@ public class QFOntologyAccessImpl {
 		defaultURI = ontologyURIStr;
 		vqs.loadOntologySession(ontologyURIStr);
 	}
-	
+/*	
+	public void loadOntology(InputStream ontologyStream, String ontologyURIStr) throws IllegalArgumentException{
+		vqs.loadOntologySession(ontologyURIStr, ontologyStream);
+	}
+*/
 	//TODO
 	public void loadOntologyVersion(String ontologyURIStr, String ontologyURIVersionStr)
 			throws IllegalArgumentException, OWLOntologyCreationException,

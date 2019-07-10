@@ -248,8 +248,9 @@ function fillTable(data, dt) {
 		for (var i = 0; i < data.results.bindings.length; i++) {
 			content += '<tr>';
 			var indx = 0;
-			for (var y in data.head.vars) {
-				var key = data.head.vars[y];
+			for (var i = 0; i < vr.output.length; i++) {
+				var col = vr.output[i];
+				var key = col.hid;
 				var binding = data.results.bindings[i][key];
 				if ( typeof binding !== 'undefined') {
 					var val = binding.value;

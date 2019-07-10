@@ -102,7 +102,7 @@ function loadPage(id, result, reCreate) {
 	content.appendTo('#ul_' + id);
 
 	if (reCreate) {
-		$('#ul_' + id).trigger("create");
+		$('#ul_' + id).listview("create");
 		$('#ul_' + id).listview('refresh');
 		$('#ul_' + id).show();
 	}
