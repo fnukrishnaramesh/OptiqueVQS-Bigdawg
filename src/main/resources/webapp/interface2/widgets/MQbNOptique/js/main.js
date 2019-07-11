@@ -102,7 +102,7 @@ function loadPage(id, result, reCreate) {
 	content.appendTo('#ul_' + id);
 
 	if (reCreate) {
-		$('#ul_' + id).listview("create");
+		$('#ul_' + id).trigger("create");
 		$('#ul_' + id).listview('refresh');
 		$('#ul_' + id).show();
 	}
@@ -111,6 +111,8 @@ function loadPage(id, result, reCreate) {
 //change page
 function changePage(id, trans) {
 	// go to it
+	//$('#ul_' + id).listview('refresh');
+	//$('#ul_' + id).show();
 	$.mobile.changePage("#" + id, {
 		transition : trans
 	});

@@ -33,11 +33,7 @@ public class QFOntologyAccessImpl {
 		defaultURI = ontologyURIStr;
 		vqs.loadOntologySession(ontologyURIStr);
 	}
-/*	
-	public void loadOntology(InputStream ontologyStream, String ontologyURIStr) throws IllegalArgumentException{
-		vqs.loadOntologySession(ontologyURIStr, ontologyStream);
-	}
-*/
+
 	//TODO
 	public void loadOntologyVersion(String ontologyURIStr, String ontologyURIVersionStr)
 			throws IllegalArgumentException, OWLOntologyCreationException,

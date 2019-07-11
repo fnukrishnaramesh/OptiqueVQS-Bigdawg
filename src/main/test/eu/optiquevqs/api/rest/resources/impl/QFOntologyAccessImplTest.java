@@ -21,10 +21,9 @@ import uio.ifi.ontology.toolkit.projection.view.OptiqueVQSAPI;
  *
  */
 public class QFOntologyAccessImplTest {
-	
+
 	RDFoxSessionManager session = new RDFoxSessionManager();
-	
-	
+
 
 	@Test
 	public void loadNPDOntology() throws FileNotFoundException {
@@ -35,9 +34,9 @@ public class QFOntologyAccessImplTest {
 		JSONArray options = concepts.getJSONArray("options");
 		vqs.clearAllSessions();
 	}
-	
-	
-	
+
+
+
 	@Test
 	public void loadSleggeOntology() throws FileNotFoundException {
 		OptiqueVQSAPI vqs = new OptiqueVQSAPI(session);
@@ -78,6 +77,4 @@ public class QFOntologyAccessImplTest {
 		assertTrue(concepts_string.length() > 100);
 		return json_concepts;
 	}
-
-	
 }
