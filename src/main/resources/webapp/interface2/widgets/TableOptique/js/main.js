@@ -245,23 +245,21 @@ function fillTable(data, dt) {
 	//prepare result list
 	//data.results.bindings.length
 	if (data != "") {
-		for (var i = 0; i < data.results.bindings.length; i++) {
+		for (var row = 0; row < data.results.bindings.length; row++) {
 			content += '<tr>';
-			var indx = 0;
-			for (var i = 0; i < vr.output.length; i++) {
-				var col = vr.output[i];
-				var key = col.hid;
-				var binding = data.results.bindings[i][key];
+			for (var col_nr = 0; col_nr < vr.output.length; col_nr++) {
+				var col = vr.output[col_nr];
+				var key = col.hId;
+				var binding = data.results.bindings[row][key];
 				if ( typeof binding !== 'undefined') {
 					var val = binding.value;
-					if (vr.output[indx].typ != "concept" || vr.output[indx].id == vr.aggregate.vr)
+					if (col.typ != "concept" || col.id == vr.aggregate.vr)
 						content += '<th>' + val + '</th>';
 					else
 						content += '<th><a href="#" rs="' + val + '" class="resource" endpoint="' + dt.content.sparqlendpoint + '">' + val + '</a></th>';
 				} else {
 					content += '<th> - </th>';
 				}
-				indx++;
 			}
 			content += '</tr>';
 		}

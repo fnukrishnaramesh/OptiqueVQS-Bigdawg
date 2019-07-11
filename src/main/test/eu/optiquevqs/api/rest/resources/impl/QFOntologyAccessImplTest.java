@@ -60,7 +60,6 @@ public class QFOntologyAccessImplTest {
 		vqs.loadOntologySession(onto_uri);
 		JSONObject jsononst = vqs.getOntologies();
 		JSONArray onts = jsononst.getJSONArray("result");
-		
 		assertTrue(onts.length() >= 1);
 		String onto_uri2 = onts.getString(0);
 		assertTrue(onto_uri2.equals(onto_uri));
