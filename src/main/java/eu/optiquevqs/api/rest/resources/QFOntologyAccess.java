@@ -20,7 +20,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import eu.optiquevqs.api.rest.resources.impl.QFOntologyAccessImpl;
 import eu.optiquevqs.server.RDFoxSessionContextListener;
 import uio.ifi.ontology.toolkit.projection.controller.triplestore.RDFoxSessionManager;
-import uk.ac.ox.cs.JRDFox.JRDFoxException;
 
 
 
@@ -45,7 +44,7 @@ public class QFOntologyAccess {
 			@QueryParam("partialQuery") String partialQuery,
 			@QueryParam("question") String question,
 			@QueryParam("runType") String runType) 
-					throws IOException, JSONException, JRDFoxException, IllegalArgumentException, OWLOntologyCreationException {
+					throws IOException, JSONException, IllegalArgumentException, OWLOntologyCreationException {
 		
 		
 		//Get context
