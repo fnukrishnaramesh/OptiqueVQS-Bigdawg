@@ -1818,9 +1818,9 @@ function myTree() {
 		if (Qconfig.longidsv == 'yes')
 			lid = 's';
 
-		for (var i = 0; i < SparqlObj.prfx.length; i++)
-			query += escapeHtml(SparqlObj.prfx[i]) + ' <br/>';
-		query += '<br>SELECT' + distinct;
+		//for (var i = 0; i < SparqlObj.prfx.length; i++)
+			//query += escapeHtml(SparqlObj.prfx[i]) + ' <br/>';
+		query += '<br>bdrel(SELECT' + distinct;
 		for (var i = 0; i < eval("SparqlObj.slct" + lid).length; i++)
 			query += " " + eval("SparqlObj.slct"+lid)[i];
 		query += ' WHERE { <br/>';
@@ -1885,7 +1885,7 @@ function myTree() {
 
 			query = v + query;
 		}*/
-
+		query += ');';
 		return query;
 	}
 	//add constraint to the graph structure
